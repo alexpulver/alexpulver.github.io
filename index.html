@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="generator" content="Hugo 0.68.3" />
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>SoftWhat? - Software Engineering tidbits </title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="alternate" type="application/rss+xml" href="https://softwhat.com/index.xml" title="SoftWhat?" />
+	<meta property="og:title" content="SoftWhat?" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://softwhat.com/" />
+<meta property="og:updated_time" content="2019-05-16T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SoftWhat?"/>
+<meta name="twitter:description" content=""/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://softwhat.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://softwhat.com/css/main.css" />
+
+	<script src="https://softwhat.com/js/feather.min.js"></script>
+	
+	<script src="https://softwhat.com/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper">
+		<div class="header">
+	<h1 class="site-title"><a href="https://softwhat.com/">SoftWhat?</a></h1>
+	<div class="site-description"><h2>Software Engineering tidbits</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/alexpulver" title="Github"><i data-feather="github"></i></a><a href="https://linkedin.com/in/alexpulver" title="LinkedIn"><i data-feather="linkedin"></i></a><a href="https://twitter.com/alex_pulver" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="recent-posts section">
+			<h2 class="section-header">
+				Recent posts
+			</h2>
+			<div class="posts">
+				
+				
+				
+				<div class="post">
+					<div class="meta">May 16, 2019</div>
+					<a class="title" href="/posts/drilling-down-to-amazon-ec2-instances-data-transfer-costs/">Drilling Down to Amazon EC2 Instances Data Transfer Costs</a> &mdash;
+					<span class="description">
+						
+						The use case I would like to address in this post revolves around the need to understand which specific Amazon EC2 instances incur the highest data transfer charges, including high-level understanding of traffic flow (e.g. to/from Internet, inter-region, intra-region and etc.). For detailed analysis of traffic flow, I would recommend to use Amazon VPC Flow Logs – see Querying Amazon VPC Flow Logs in Amazon Athena (serverless query service) documentation.&hellip;
+						
+					</span>
+				</div>
+				
+				<div class="post">
+					<div class="meta">Jul 1, 2016</div>
+					<a class="title" href="/posts/bootstrapping-tcl-unit-testing-with-tcltest/">Bootstrapping Tcl Unit Testing With Tcltest</a> &mdash;
+					<span class="description">
+						
+						If you are working with Tcl, and interested in adding unit tests to your project using tcltest, read on.
+Usually there is some bootstrap work required to run your unit tests. For example, every test should load the relevant libraries before using them in a test. There is also a need in a test runner that would execute the test suite and report results. Since there are several ways to implement the above, and there are some gotchas along the way, I thought it would be useful to provide a reference implementation.&hellip;
+						
+					</span>
+				</div>
+				
+				<div class="post">
+					<div class="meta">Jun 9, 2016</div>
+					<a class="title" href="/posts/using-couchbase-python-sdk-on-cloud-foundry/">Using Couchbase Python SDK on Cloud Foundry</a> &mdash;
+					<span class="description">
+						
+						I wanted to use Couchbase as a session store for my app instances, and specifically Couchbase Python SDK. The problem I faced was that Couchbase Python SDK (and some of Couchbase other non-C SDKs) requires Couchbase C SDK to be installed a priori – it is not installed by pip automatically.
+Sadly, Conda package manager doesn’t have Couchbase C SDK in its repository, so I could not use Cloud Foundry Python Conda buildpack to install it (it can be very useful to install SciPy for example, which is supported by Conda).&hellip;
+						
+					</span>
+				</div>
+				
+				
+
+
+			</div>
+		</div>
+	</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © 2016-2020 Alex Pulver |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-78532010-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>
