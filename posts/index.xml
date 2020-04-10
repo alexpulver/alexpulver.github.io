@@ -23,10 +23,10 @@
     
     <item>
       <title>Bootstrapping Tcl Unit Testing With Tcltest</title>
-      <link>https://softwhat.com/2016/07/01/bootstrapping-tcl-unit-testing-with-tcltest/</link>
+      <link>https://softwhat.com/bootstrapping-tcl-unit-testing-with-tcltest/</link>
       <pubDate>Fri, 01 Jul 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://softwhat.com/2016/07/01/bootstrapping-tcl-unit-testing-with-tcltest/</guid>
+      <guid>https://softwhat.com/bootstrapping-tcl-unit-testing-with-tcltest/</guid>
       <description>If you are working with Tcl, and interested in adding unit tests to your project using tcltest, read on.
 Usually there is some bootstrap work required to run your unit tests. For example, every test should load the relevant libraries before using them in a test. There is also a need in a test runner that would execute the test suite and report results. Since there are several ways to implement the above, and there are some gotchas along the way, I thought it would be useful to provide a reference implementation.</description>
     </item>
