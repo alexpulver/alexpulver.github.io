@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2016-2020 Alex Pulver</copyright>
-    <lastBuildDate>Thu, 16 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://softwhat.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Automated Path From Hardcoded SQL Queries to SQLAlchemy ORM With Flask</title>
+      <link>https://softwhat.com/automated-path-from-hardcoded-sql-queries-to-sqlalchemy-orm-with-flask/</link>
+      <pubDate>Sat, 11 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://softwhat.com/automated-path-from-hardcoded-sql-queries-to-sqlalchemy-orm-with-flask/</guid>
+      <description>Let&amp;rsquo;s assume you started by developing the database schema directly on the server (e.g. using MySQL Workbench) and used hardcoded SQL queries in the code (e.g. using one of Transaction Script, Domain Model or Logic in SQL approaches).
+Then at some point you feel confident to use SQLAlchemy&amp;lsquo;s Object-Relational Mapping (ORM) framework. On a side note, I highly recommend to read OrmHate article by Martin Fowler to get some perspective on when to use ORM frameworks.</description>
+    </item>
     
     <item>
       <title>Drilling Down to Amazon EC2 Instances Data Transfer Costs</title>
