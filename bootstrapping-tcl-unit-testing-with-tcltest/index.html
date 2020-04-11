@@ -63,13 +63,14 @@ Since there are several ways to implement the above, and there are some gotchas 
 Below is an overview of the files with some explanation about the implementation. The assumption is that you already familiar with <a href="http://www.tcl.tk/man/tcl/TclCmd/tcltest.htm">tcltest</a> and <a href="http://incrtcl.sourceforge.net/itcl/">[incr Tcl]</a>.</p>
 <p><strong>bootstrap.sh</strong></p>
 <p>Please run this file once you clone the source code – it will create the intended directory structure from the flat files.
-Then you can execute tests/run to see the DataManager test pass.</p>
-<p><strong>tests-run</strong> (i.e. tests/run)</p>
+Then you can execute <code>tests/run</code> to see the DataManager test pass.</p>
+<p><strong>tests-run</strong> (i.e. <code>tests/run</code>)</p>
 <p>This file sets <code>PROJECT_ROOT</code> environment variable pointing to the root of the project. The variable is used in <code>::tcltest::loadScript</code> to source all project libraries needed for unit tests execution. Then all unit tests under <code>$PROJECT_ROOT/tests</code> are discovered recursively and executed. It is possible to pass tcltest configuration arguments to <code>tests/run</code> to add or override existing options.</p>
-<p><strong>tests-database-DataManager.test</strong> (i.e. tests/database/DataManager.test)</p>
-<p>An example unit test for DataManager class.</p>
-<p><strong>database-DataManager.itcl</strong> (i.e. database/DataManager.itcl)</p>
-<p>An example DataManager class.</p>
+<p><strong>tests-database-DataManager.test</strong> (i.e. <code>tests/database/DataManager.test</code>)</p>
+<p>An example unit test for <code>DataManager</code> class.</p>
+<p><strong>database-DataManager.itcl</strong> (i.e. <code>database/DataManager.itcl</code>)</p>
+<p>An example <code>DataManager</code> class.</p>
+<p><strong>Conclusion</strong></p>
 <p>This implementation provides a good balance IMHO between the ability to run all tests in parallel, keeping a single main entry point for running the tests (as opposed to having multiple duplicate <code>all.tcl</code> files in each test directory), being able to run a single or selected tests (by providing <code>::tcltest::configure</code> options to <code>tests/run</code>) and keeping the <code>*.test</code> files lean in terms of locating and sourcing the libraries.</p>
 
 		</div>
