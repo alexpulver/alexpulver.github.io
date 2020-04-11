@@ -23,6 +23,16 @@ Then at some point you feel confident to use SQLAlchemy&amp;lsquo;s Object-Relat
     </item>
     
     <item>
+      <title>Organizing Flask-based Web API Directory Structure</title>
+      <link>https://softwhat.com/organizing-flask-based-web-api-directory-structure/</link>
+      <pubDate>Wed, 15 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://softwhat.com/organizing-flask-based-web-api-directory-structure/</guid>
+      <description>Acknowledgements: This post was heavily influenced by Explore Flask book and series of Miguel Grinberg&amp;rsquo;s posts starting with Designing a RESTful API with Python and Flask.
+Still, the above and most of the other examples I found usually refer to directory structure of frontend applications or very simple web APIs. It took me a while to build a big picture of how to build the directory structure of a web API with Flask, hence I thought it might be useful to share.</description>
+    </item>
+    
+    <item>
       <title>Drilling Down to Amazon EC2 Instances Data Transfer Costs</title>
       <link>https://softwhat.com/drilling-down-to-amazon-ec2-instances-data-transfer-costs/</link>
       <pubDate>Thu, 16 May 2019 00:00:00 +0000</pubDate>
