@@ -71,28 +71,29 @@
 <span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> sum_line_item_usage_amount <span style="color:#719e07">DESC</span>
 <span style="color:#719e07">LIMIT</span> <span style="color:#2aa198">100</span>
 </code></pre></div><p>The result will look something like this:</p>
-<table>
-<thead>
-<tr>
-<th>line_item_resource_id</th>
-<th>sum_line_item_usage_amount</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>i-0526081c…</td>
-<td>11.81</td>
-</tr>
-<tr>
-<td>i-04946b12…</td>
-<td>9.08</td>
-</tr>
-<tr>
-<td>i-0ae87b25…</td>
-<td>0.03</td>
-</tr>
-</tbody>
-</table>
+
+
+<div style="overflow-x:auto;">
+  <table>
+      <tr>
+          <th>line_item_resource_id</th>
+          <th>sum_line_item_usage_amount</th>
+      </tr>
+      <tr>
+          <td>i-0526081c…</td>
+          <td>11.81</td>
+      </tr>
+      <tr>
+          <td>i-04946b12…</td>
+          <td>9.08</td>
+      </tr>
+      <tr>
+          <td>i-0ae87b25…</td>
+          <td>0.03</td>
+      </tr>
+  </table>
+</div>
+
 <p>Now we can dive deeper into the details of the specific Amazon EC2 instance using the next query:</p>
 <div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#719e07">SELECT</span>
   line_item_resource_id,
@@ -116,75 +117,76 @@
 <span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> sum_line_item_usage_amount <span style="color:#719e07">DESC</span>
 <span style="color:#719e07">LIMIT</span> <span style="color:#2aa198">10</span>
 </code></pre></div><p>The result below shows, for example, that most of the data transfer is attributed to intra-region traffic coming through the instance’s public IP address:</p>
-<table>
-<thead>
-<tr>
-<th>line_item_resource_id</th>
-<th>product_transfer_type</th>
-<th>product_from_location</th>
-<th>product_to_location</th>
-<th>line_item_operation</th>
-<th>line_item_line_item_description</th>
-<th>sum_line_item_usage_amount</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>i-0526081c&hellip;</td>
-<td>IntraRegion</td>
-<td>EU (Ireland)</td>
-<td>EU (Ireland)</td>
-<td>PublicIP-In</td>
-<td>$0.010 per GB – regional data transfer – in/out/between EC2 AZs or using elastic IPs or ELB</td>
-<td>9.18</td>
-</tr>
-<tr>
-<td>i-0526081c&hellip;</td>
-<td>IntraRegion</td>
-<td>EU (Ireland)</td>
-<td>EU (Ireland)</td>
-<td>InterZone-In</td>
-<td>$0.010 per GB – regional data transfer – in/out/between EC2 AZs or using elastic IPs or ELB</td>
-<td>1.64</td>
-</tr>
-<tr>
-<td>i-0526081c&hellip;</td>
-<td>IntraRegion</td>
-<td>EU (Ireland)</td>
-<td>EU (Ireland)</td>
-<td>PublicIP-Out</td>
-<td>$0.010 per GB – regional data transfer – in/out/between EC2 AZs or using elastic IPs or ELB</td>
-<td>0.78</td>
-</tr>
-<tr>
-<td>i-0526081c&hellip;</td>
-<td>IntraRegion</td>
-<td>EU (Ireland)</td>
-<td>EU (Ireland)</td>
-<td>InterZone-Out</td>
-<td>$0.010 per GB – regional data transfer – in/out/between EC2 AZs or using elastic IPs or ELB</td>
-<td>0.2</td>
-</tr>
-<tr>
-<td>i-0526081c&hellip;</td>
-<td>AWS Outbound</td>
-<td>EU (Ireland)</td>
-<td>External</td>
-<td>RunInstances</td>
-<td>$0.000 per GB – first 1 GB of data transferred out per month</td>
-<td>0</td>
-</tr>
-<tr>
-<td>i-0526081c&hellip;</td>
-<td>AWS Inbound</td>
-<td>External</td>
-<td>EU (Ireland)</td>
-<td>RunInstances</td>
-<td>$0.000 per GB – data transfer in per month</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
+
+
+<div style="overflow-x:auto;">
+  <table>
+      <tr>
+          <th>line_item_resource_id</th>
+          <th>product_transfer_type</th>
+          <th>product_from_location</th>
+          <th>product_to_location</th>
+          <th>line_item_operation</th>
+          <th>line_item_line_item_description</th>
+          <th>sum_line_item_usage_amount</th>
+      </tr>
+      <tr>
+          <td>i-0526081c...</td>
+          <td>IntraRegion</td>
+          <td>EU (Ireland)</td>
+          <td>EU (Ireland)</td>
+          <td>PublicIP-In</td>
+          <td>$0.010 per GB – regional data transfer – in/out/between EC2 AZs or using elastic IPs or ELB</td>
+          <td>9.18</td>
+      </tr>
+      <tr>
+          <td>i-0526081c...</td>
+          <td>IntraRegion</td>
+          <td>EU (Ireland)</td>
+          <td>EU (Ireland)</td>
+          <td>InterZone-In</td>
+          <td>$0.010 per GB – regional data transfer – in/out/between EC2 AZs or using elastic IPs or ELB</td>
+          <td>1.64</td>
+      </tr>
+      <tr>
+          <td>i-0526081c...</td>
+          <td>IntraRegion</td>
+          <td>EU (Ireland)</td>
+          <td>EU (Ireland)</td>
+          <td>PublicIP-Out</td>
+          <td>$0.010 per GB – regional data transfer – in/out/between EC2 AZs or using elastic IPs or ELB</td>
+          <td>0.78</td>
+      </tr>
+      <tr>
+          <td>i-0526081c...</td>
+          <td>IntraRegion</td>
+          <td>EU (Ireland)</td>
+          <td>EU (Ireland)</td>
+          <td>InterZone-Out</td>
+          <td>$0.010 per GB – regional data transfer – in/out/between EC2 AZs or using elastic IPs or ELB</td>
+          <td>0.2</td>
+      </tr>
+      <tr>
+          <td>i-0526081c...</td>
+          <td>AWS Outbound</td>
+          <td>EU (Ireland)</td>
+          <td>External</td>
+          <td>RunInstances</td>
+          <td>$0.000 per GB – first 1 GB of data transferred out per month</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td>i-0526081c...</td>
+          <td>AWS Inbound</td>
+          <td>External</td>
+          <td>EU (Ireland)</td>
+          <td>RunInstances</td>
+          <td>$0.000 per GB – data transfer in per month</td>
+          <td>0</td>
+      </tr>
+  </table>
+</div>
+
 <p>If we would like to understand what is the exact source of the traffic at this point, we would need to get the ENI ID of the instance and query Amazon VPC Flow Logs as mentioned in the beginning of this post.</p>
 
 		</div>

@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://softwhat.com/automated-path-from-hardcoded-sql-queries-to-sqlalchemy-orm-with-flask/</loc>
-    <lastmod>2020-04-11T00:00:00+00:00</lastmod>
+    <loc>https://softwhat.com/getting-things-done-with-outlook-and-asana/</loc>
+    <lastmod>2020-04-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://softwhat.com/posts/</loc>
-    <lastmod>2020-04-11T00:00:00+00:00</lastmod>
+    <lastmod>2020-04-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://softwhat.com/</loc>
+    <lastmod>2020-04-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://softwhat.com/automated-path-from-hardcoded-sql-queries-to-sqlalchemy-orm-with-flask/</loc>
     <lastmod>2020-04-11T00:00:00+00:00</lastmod>
   </url>
   
