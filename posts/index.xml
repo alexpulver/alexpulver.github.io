@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2016-2020 Alex Pulver</copyright>
-    <lastBuildDate>Tue, 28 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 23 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://softwhat.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Adapting Maslow&#39;s Pyramid to Personal Development</title>
+      <link>https://softwhat.com/adapting-maslows-pyramid-to-personal-development/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://softwhat.com/adapting-maslows-pyramid-to-personal-development/</guid>
+      <description>The software engineering world is constantly increasing in breadth and depth. There is so much to learn, and it is very challenging to prioritize what and when. Recently, I looked at Maslow&amp;rsquo;s hierarchy of needs in its pyramid form, and then an idea stroke me - personal development might be very much represented in a similar manner. The missing link for me was adding time sensitivity to the needs (i.e. priorities).</description>
+    </item>
     
     <item>
       <title>Getting Things Done With Outlook and Asana</title>
