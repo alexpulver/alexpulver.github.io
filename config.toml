@@ -3,6 +3,7 @@ copyright = "© 2016-2020 Alex Pulver"
 enableEmoji = true
 googleAnalytics = "UA-78532010-1"
 languageCode = "en-us"
+publishDir = "docs"
 title = "SoftWhat?"
 theme = "ezhil"
 
