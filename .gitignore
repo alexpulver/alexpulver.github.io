@@ -1,5 +1,2 @@
 # macOS files
 .DS_Store
-
-# Hugo files
-.hugo_build.lock
