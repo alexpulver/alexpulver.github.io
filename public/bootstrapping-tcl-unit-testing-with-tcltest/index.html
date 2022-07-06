@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Bootstrapping Tcl Unit Testing With Tcltest - SoftWhat?</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Bootstrapping Tcl Unit Testing With Tcltest" />
+<meta property="og:description" content="If you are working with Tcl, and interested in adding unit tests to your project using tcltest, read on.
+Usually there is some bootstrap work required to run your unit tests. For example, every test should load the relevant libraries before using them in a test. There is also a need in a test runner that would execute the test suite and report results. Since there are several ways to implement the above, and there are some gotchas along the way, I thought it would be useful to provide a reference implementation." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://softwhat.com/bootstrapping-tcl-unit-testing-with-tcltest/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2016-07-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-07-01T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bootstrapping Tcl Unit Testing With Tcltest"/>
+<meta name="twitter:description" content="If you are working with Tcl, and interested in adding unit tests to your project using tcltest, read on.
+Usually there is some bootstrap work required to run your unit tests. For example, every test should load the relevant libraries before using them in a test. There is also a need in a test runner that would execute the test suite and report results. Since there are several ways to implement the above, and there are some gotchas along the way, I thought it would be useful to provide a reference implementation."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://softwhat.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://softwhat.com/css/main.css" />
+
+	<script src="https://softwhat.com/js/feather.min.js"></script>
+	
+	<script src="https://softwhat.com/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="https://softwhat.com/">SoftWhat?</a></h1>
+	<div class="site-description"><h2>Software Engineering tidbits</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/alexpulver" title="Github"><i data-feather="github"></i></a><a href="https://linkedin.com/in/alexpulver" title="LinkedIn"><i data-feather="linkedin"></i></a><a href="https://twitter.com/alex_pulver" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Bootstrapping Tcl Unit Testing With Tcltest</h1>
+			<div class="meta">Posted at &mdash; Jul 1, 2016</div>
+		</div>
+
+		<div class="markdown">
+			<p>If you are working with Tcl, and interested in adding unit tests to your project using tcltest, read on.</p>
+<p>Usually there is some bootstrap work required to run your unit tests.
+For example, every test should load the relevant libraries before using them in a test. There is also a need in a test runner that would execute the test suite and report results.
+Since there are several ways to implement the above, and there are some gotchas along the way, I thought it would be useful to provide a reference implementation.</p>
+<p>You can get the code for this blog post from a GitHub <a href="https://gist.github.com/deedd951add38ade5e09cba561864acb.git">gist</a>. The dashes (&quot;-&quot;) in file names below symbolize path separators (e.g. &ldquo;/&rdquo; on Unix/Linux). I used this approach to make the gist structure flat and easy to follow.
+Below is an overview of the files with some explanation about the implementation. The assumption is that you already familiar with <a href="http://www.tcl.tk/man/tcl/TclCmd/tcltest.htm">tcltest</a> and <a href="http://incrtcl.sourceforge.net/itcl/">[incr Tcl]</a>.</p>
+<p><strong>bootstrap.sh</strong></p>
+<p>Please run this file once you clone the source code – it will create the intended directory structure from the flat files.
+Then you can execute <code>tests/run</code> to see the DataManager test pass.</p>
+<p><strong>tests-run</strong> (i.e. <code>tests/run</code>)</p>
+<p>This file sets <code>PROJECT_ROOT</code> environment variable pointing to the root of the project. The variable is used in <code>::tcltest::loadScript</code> to source all project libraries needed for unit tests execution. Then all unit tests under <code>$PROJECT_ROOT/tests</code> are discovered recursively and executed. It is possible to pass tcltest configuration arguments to <code>tests/run</code> to add or override existing options.</p>
+<p><strong>tests-database-DataManager.test</strong> (i.e. <code>tests/database/DataManager.test</code>)</p>
+<p>An example unit test for <code>DataManager</code> class.</p>
+<p><strong>database-DataManager.itcl</strong> (i.e. <code>database/DataManager.itcl</code>)</p>
+<p>An example <code>DataManager</code> class.</p>
+<p><strong>Conclusion</strong></p>
+<p>This implementation provides a good balance IMHO between the ability to run all tests in parallel, keeping a single main entry point for running the tests (as opposed to having multiple duplicate <code>all.tcl</code> files in each test directory), being able to run a single or selected tests (by providing <code>::tcltest::configure</code> options to <code>tests/run</code>) and keeping the <code>*.test</code> files lean in terms of locating and sourcing the libraries.</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © 2016-2020 Alex Pulver |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-78532010-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>
