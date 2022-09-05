@@ -3,3 +3,6 @@
 
 # Hugo files
 .hugo_build.lock
+
+# PyCharm
+.idea/
