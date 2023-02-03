@@ -1,7 +1,7 @@
 baseURL = "https://softwhat.com/"
 copyright = "© 2016 Alex Pulver"
 enableEmoji = true
-googleAnalytics = "UA-78532010-1"
+googleAnalytics = "G-GLQWF9R90L"
 languageCode = "en-us"
 publishDir = "docs"
 title = "SoftWhat?"
