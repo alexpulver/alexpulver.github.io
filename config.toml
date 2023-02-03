@@ -1,5 +1,5 @@
 baseURL = "https://softwhat.com/"
-copyright = "© 2016-2020 Alex Pulver"
+copyright = "© 2016 Alex Pulver"
 enableEmoji = true
 googleAnalytics = "UA-78532010-1"
 languageCode = "en-us"
@@ -14,7 +14,7 @@ pygmentscodefencesguesssyntax = true
 
 [params]
   # Blog subtitle which appears below blog title. Supports markdown.
-  subtitle = "Software Engineering tidbits"
+  subtitle = "Architecture and Software Engineering tidbits"
 
   # Specify favicon (icons/i.png maps to static/icons/i.png). No favicon if not defined.
   favicon = "icons/favicon.ico"
