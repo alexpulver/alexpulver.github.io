@@ -1,0 +1,4 @@
+[submodule "themes/ezhil"]
+	path = themes/ezhil
+	url = https://github.com/alexpulver/ezhil.git
+	branch = ga-v4-support
