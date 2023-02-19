@@ -47,9 +47,9 @@ Cloud Services tie together all of the different components of Snowflake in orde
 
 Snowflake customers interact with Cloud Services and Query Processing functionality. Hence, I would organize them into the SaaS application plane. SaaS providers integrate their products with Stripe to provide billing functionality. The billing functionality is an operational component of the SaaS offering, hence I would organize it into the SaaS control plane.
 
-Based on the above, you can see both SaaS control plane and SaaS application plane services may have Service control plane and Service data plane components, as shown in the diagram below. Hence, I suggest to think of SaaS control plane and SaaS application plane as containers for Service control plane and Service application plane.
+Based on the above, you can see both SaaS control plane and SaaS application plane services may have Service control plane and Service data plane components, as shown in the diagram below. Hence, I suggest to think of SaaS control plane and SaaS application plane as containers for Service control plane and Service data plane.
 
-> SaaS control plane and SaaS application plane are containers for Service control plane and Service application plane
+> SaaS control plane and SaaS application plane are containers for Service control plane and Service data plane
 
 *Note:* Some functionality may span SaaS control plane and SaaS application plane. One example is Authentication service. Authentication control plane would be part of SaaS control plane - e.g. configure authentication requirements. Authentication data plane would be part of SaaS application plane - e.g. perform JWT validation.
 
