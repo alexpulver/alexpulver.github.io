@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://softwhat.com/posts/</loc>
-    <lastmod>2023-03-25T00:00:00+00:00</lastmod>
+    <loc>https://softwhat.com/how-to-manage-aws-cdk-application-configuration/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://softwhat.com/recommended-aws-cdk-project-structure-for-monolithic-python-applications/</loc>
-    <lastmod>2023-03-25T00:00:00+00:00</lastmod>
+    <loc>https://softwhat.com/posts/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://softwhat.com/</loc>
+    <lastmod>2023-03-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://softwhat.com/recommended-aws-cdk-project-structure-for-monolithic-python-applications/</loc>
     <lastmod>2023-03-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://softwhat.com/aligning-saas-and-service-planes-definitions/</loc>

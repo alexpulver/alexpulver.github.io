@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2016 Alex Pulver</copyright>
-    <lastBuildDate>Sat, 25 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://softwhat.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://softwhat.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Manage AWS CDK Application Configuration</title>
+      <link>https://softwhat.com/how-to-manage-aws-cdk-application-configuration/</link>
+      <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://softwhat.com/how-to-manage-aws-cdk-application-configuration/</guid>
+      <description>AWS CDK applications need to maintain certain configuration in the version control repository. Configuration can include application name, programming language version, version control branch, build configuration, account and Region per environment, etc. I often see the use of configuration files (e.g. cdk.json) for this purpose, in formats such as JSON and YAML.
+In this post, I describe my recommendations for managing AWS CDK application configuration.
+Context From my experience, builders use configuration files mainly to avoid: 1/ changing the application code because they don&amp;rsquo;t own it 2/ triggering a build 3/ performing a deployment.</description>
+    </item>
+    
     <item>
       <title>Recommended AWS CDK Project Structure for Monolithic Python Applications</title>
       <link>https://softwhat.com/recommended-aws-cdk-project-structure-for-monolithic-python-applications/</link>

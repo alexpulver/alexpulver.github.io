@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
 
 	<link rel="stylesheet" type="text/css" media="screen" href="https://softwhat.com/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://softwhat.com/css/main.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://softwhat.com/css/main.css" /><link rel="stylesheet" type="text/css" href="https://softwhat.com/css/dark.css" media="(prefers-color-scheme: dark)" />
 
 	<script src="https://softwhat.com/js/feather.min.js"></script>
 	
@@ -57,6 +57,18 @@
 			<div class="posts">
 				
 				
+				
+				<div class="post">
+					<div class="meta">Mar 26, 2023</div>
+					<a class="title" href="/how-to-manage-aws-cdk-application-configuration/">How to Manage AWS CDK Application Configuration</a> &mdash;
+					<span class="description">
+						
+						AWS CDK applications need to maintain certain configuration in the version control repository. Configuration can include application name, programming language version, version control branch, build configuration, account and Region per environment, etc. I often see the use of configuration files (e.g. cdk.json) for this purpose, in formats such as JSON and YAML.
+In this post, I describe my recommendations for managing AWS CDK application configuration.
+Context From my experience, builders use configuration files mainly to avoid: 1/ changing the application code because they don&rsquo;t own it 2/ triggering a build 3/ performing a deployment.&hellip;
+						
+					</span>
+				</div>
 				
 				<div class="post">
 					<div class="meta">Mar 25, 2023</div>
@@ -153,17 +165,6 @@ Still, the above and most of the other examples I found usually refer to directo
 					<span class="description">
 						
 						The use case I would like to address in this post revolves around the need to understand which specific Amazon EC2 instances incur the highest data transfer charges, including high-level understanding of traffic flow (e.g. to/from Internet, inter-region, intra-region and etc.). For detailed analysis of traffic flow, I would recommend to use Amazon VPC Flow Logs – see Querying Amazon VPC Flow Logs in Amazon Athena (serverless query service) documentation.&hellip;
-						
-					</span>
-				</div>
-				
-				<div class="post">
-					<div class="meta">Jul 1, 2016</div>
-					<a class="title" href="/bootstrapping-tcl-unit-testing-with-tcltest/">Bootstrapping Tcl Unit Testing With Tcltest</a> &mdash;
-					<span class="description">
-						
-						If you are working with Tcl, and interested in adding unit tests to your project using tcltest, read on.
-Usually there is some bootstrap work required to run your unit tests. For example, every test should load the relevant libraries before using them in a test. There is also a need in a test runner that would execute the test suite and report results. Since there are several ways to implement the above, and there are some gotchas along the way, I thought it would be useful to provide a reference implementation.&hellip;
 						
 					</span>
 				</div>

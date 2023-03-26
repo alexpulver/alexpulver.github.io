@@ -392,4 +392,4 @@ class Toolchain(cdk.Stack):
 ## Conclusion
 In this post, I described the recommended project structure for monolithic applications. The options covered range from deploying the application as a single stack to using a stack per component. You can also create more than one stack in a component if needed. I used a single pipeline for the application. If you would like to create more than one pipeline (e.g. pipeline per component), look at [Integrate GitHub monorepo with AWS CodePipeline to run project-specific CI/CD pipelines](https://aws.amazon.com/blogs/devops/integrate-github-monorepo-with-aws-codepipeline-to-run-project-specific-ci-cd-pipelines/) blog post.
 
-If you think I’ve missed something, or you have a use case that I didn’t cover, feel free to ping me on Twitter at @alex_pulver. Happy coding!
+If you think I’ve missed something, feel free to ping me [@alex_pulver](https://twitter.com/alex_pulver). Happy coding!
