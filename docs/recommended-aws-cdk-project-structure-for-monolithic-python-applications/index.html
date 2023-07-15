@@ -4,16 +4,18 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Recommended AWS CDK Project Structure for Monolithic Python Applications - SoftWhat?</title><link rel="icon" type="image/png" href=icons/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta property="og:title" content="Recommended AWS CDK Project Structure for Monolithic Python Applications" />
-<meta property="og:description" content="In my Recommended AWS CDK project structure for Python applications blog post, the application is a component (User Management Backend) with a dedicated Git repository and a single pipeline. This is the option #4 in the figure below.
-Source: https://d1.awsstatic.com/events/Summits/reinvent2022/DOP321_Organize-application-components-into-repositories-and-pipelines-with-AWS-CDK.pdf Some builders initially prefer to manage the workload as a monolith in a single repository with one or more pipelines. In this post, I describe an application for options #1 and #2 in the above figure." />
+<meta property="og:description" content="July 17, 2023: Updated the guidance to align with Application Design Framework recommendations.
+My Recommended AWS CDK project structure for Python applications blog post describes an application for a single bounded context - User Management Backend service. The application includes a dedicated repository with source code for the service and the toolchain. This is the option #4 in the figure below.
+Source: https://d1.awsstatic.com/events/Summits/reinvent2022/DOP321_Organize-application-components-into-repositories-and-pipelines-with-AWS-CDK.pdf Some builders initially prefer to start with an application that includes multiple bounded contexts - options #1 and #2 above." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://softwhat.com/recommended-aws-cdk-project-structure-for-monolithic-python-applications/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-03-25T00:00:00+00:00" />
 <meta property="article:modified_time" content="2023-03-25T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Recommended AWS CDK Project Structure for Monolithic Python Applications"/>
-<meta name="twitter:description" content="In my Recommended AWS CDK project structure for Python applications blog post, the application is a component (User Management Backend) with a dedicated Git repository and a single pipeline. This is the option #4 in the figure below.
-Source: https://d1.awsstatic.com/events/Summits/reinvent2022/DOP321_Organize-application-components-into-repositories-and-pipelines-with-AWS-CDK.pdf Some builders initially prefer to manage the workload as a monolith in a single repository with one or more pipelines. In this post, I describe an application for options #1 and #2 in the above figure."/>
+<meta name="twitter:description" content="July 17, 2023: Updated the guidance to align with Application Design Framework recommendations.
+My Recommended AWS CDK project structure for Python applications blog post describes an application for a single bounded context - User Management Backend service. The application includes a dedicated repository with source code for the service and the toolchain. This is the option #4 in the figure below.
+Source: https://d1.awsstatic.com/events/Summits/reinvent2022/DOP321_Organize-application-components-into-repositories-and-pipelines-with-AWS-CDK.pdf Some builders initially prefer to start with an application that includes multiple bounded contexts - options #1 and #2 above."/>
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
 
 	<link rel="stylesheet" type="text/css" media="screen" href="https://softwhat.com/css/normalize.css" />
@@ -56,344 +58,280 @@ Source: https://d1.awsstatic.com/events/Summits/reinvent2022/DOP321_Organize-app
 		</div>
 
 		<div class="markdown">
-			<p>In my <a href="https://aws.amazon.com/blogs/developer/recommended-aws-cdk-project-structure-for-python-applications/">Recommended AWS CDK project structure for Python applications</a> blog post, the application is a component (User Management Backend) with a dedicated Git repository and a single pipeline. This is the option #4 in the figure below.</p>
+			<p><strong>July 17, 2023:</strong> Updated the guidance to align with <a href="https://applicationdesignframework.com/">Application Design Framework</a> recommendations.</p>
+<hr>
+<p>My <a href="https://aws.amazon.com/blogs/developer/recommended-aws-cdk-project-structure-for-python-applications/">Recommended AWS CDK project structure for Python applications</a> blog post describes an application for a single bounded context - <code>User Management Backend</code> service. The application includes a dedicated repository with source code for the service and the toolchain. This is the option #4 in the figure below.</p>
 <figure><img src="/images/recommended-aws-cdk-project-structure-for-monolithic-python-applications-1.png"/><figcaption>
             <h4>Source: https://d1.awsstatic.com/events/Summits/reinvent2022/DOP321_Organize-application-components-into-repositories-and-pipelines-with-AWS-CDK.pdf</h4>
         </figcaption>
 </figure>
 
-<p>Some builders initially prefer to manage the workload as a monolith in a single repository with one or more pipelines. In this post, I describe an application for options #1 and #2 in the above figure.</p>
-<h2 id="concepts">Concepts</h2>
-<p>I use the following <a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/definitions.html">terminology</a> from the AWS Well-Architected Framework:</p>
-<ul>
-<li>A <strong>component</strong> is the code, configuration, and AWS Resources that together deliver against a requirement. A component is often the unit of technical ownership, and is decoupled from other components.</li>
-<li>The term <strong>workload</strong> is used to identify a set of components that together deliver business value. A workload is usually the level of detail that business and technology leaders communicate about.</li>
-<li>We think about <strong>architecture</strong> as being how components work together in a workload. How components communicate and interact is often the focus of architecture diagrams.</li>
-</ul>
-<h2 id="architecture">Architecture</h2>
-<p>I am extending the User Management workload to 3 components: <code>Users UI</code>, <code>Users API</code> (<code>Backend</code> in the original post), and <code>Chatbot API</code>.</p>
+<p>Some builders initially prefer to start with an application that includes multiple bounded contexts - options #1 and #2 above. In this post, I describe the recommended AWS CDK project structure for these options, with #1 as the example.</p>
+<h2 id="example-application">Example application</h2>
+<p>Let&rsquo;s assume the application boundary now includes the following bounded contexts: <code>Admin Console</code> and <code>User Management</code> (<code>User Management Backend</code> in the original post).</p>
 <figure><img src="/images/recommended-aws-cdk-project-structure-for-monolithic-python-applications-2.png"/><figcaption>
-            <h4>User Management workload</h4>
+            <h4>Application</h4>
         </figcaption>
 </figure>
 
 <h2 id="project-structure">Project structure</h2>
-<p>The project now has a top-level package for the workload. The workload package contains a sub-package for each component.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>usermanagement/
-</span></span><span style="display:flex;"><span>    chatbot_api/
-</span></span><span style="display:flex;"><span>        nlp/
-</span></span><span style="display:flex;"><span>            runtime/
-</span></span><span style="display:flex;"><span>                lambda_function.py
-</span></span><span style="display:flex;"><span>        component.py  <span style="color:#586e75"># defines NLP infrastructure</span>
-</span></span><span style="display:flex;"><span>    users_api/
+<p>The application always includes at least service and toolchain components. Service includes functionality such as business logic and monitoring. Toolchain includes functionality such as deployment pipeline, pull request build, and tenant provisioning. Service and toolchain may include sub-components and eventually resources configuration and business logic. Below is the recommended project structure for the example application.</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>service/
+</span></span><span style="display:flex;"><span>    admin_console/
+</span></span><span style="display:flex;"><span>        ui/
+</span></span><span style="display:flex;"><span>            index.html
+</span></span><span style="display:flex;"><span>        hosting.py
+</span></span><span style="display:flex;"><span>    user_management/
 </span></span><span style="display:flex;"><span>        api/
-</span></span><span style="display:flex;"><span>            runtime/
-</span></span><span style="display:flex;"><span>                lambda_function.py
-</span></span><span style="display:flex;"><span>            infrastructure.py
-</span></span><span style="display:flex;"><span>        database/
-</span></span><span style="display:flex;"><span>            infrastructure.py
-</span></span><span style="display:flex;"><span>        operations/
-</span></span><span style="display:flex;"><span>            infrastructure.py
-</span></span><span style="display:flex;"><span>        component.py
-</span></span><span style="display:flex;"><span>    users_ui/
-</span></span><span style="display:flex;"><span>        spa/
-</span></span><span style="display:flex;"><span>            runtime/
-</span></span><span style="display:flex;"><span>                index.html
-</span></span><span style="display:flex;"><span>        component.py  <span style="color:#586e75"># defines CDN and SPA infrastructure</span>
-</span></span><span style="display:flex;"><span>    workload.py
+</span></span><span style="display:flex;"><span>            app.py
+</span></span><span style="display:flex;"><span>        ingress.py
+</span></span><span style="display:flex;"><span>        database.py
+</span></span><span style="display:flex;"><span>    service_stack.py
 </span></span><span style="display:flex;"><span>app.py
-</span></span><span style="display:flex;"><span>toolchain.py
-</span></span></code></pre></div><p><em>Note:</em> The infrastructure for Chatbot API and Users UI logical units (NLP and CDN/SPA respectively) is quite simple. Hence, I decided to define the infrastructure directly in the <code>component.py</code> file. I did create dedicated directories for the logical units&rsquo; runtime code as it is more involved.</p>
-<p>The new <code>usermanagement/workload.py</code> module composes the components into the deployment layout. But first, I need to decide on the deployment layout itself 😃. The options range from workload as a single stack to each component as one or more stacks. I will describe both below.</p>
-<p>Let&rsquo;s go through the related changes in <code>app.py</code>, <code>usermanagement/users_api/component.py</code> (<code>backend/component.py</code> in the original blog post), <code>toolchain.py</code>, and introduce the new <code>usermanagement/workload.py</code>.</p>
-<h2 id="workload-as-a-single-stack">Workload as a single stack</h2>
+</span></span><span style="display:flex;"><span>toolchain/
+</span></span><span style="display:flex;"><span>    deployment_pipeline.py
+</span></span><span style="display:flex;"><span>    toolchain_stack.py
+</span></span></code></pre></div><p>Service includes <code>Admin Console</code> and <code>User Management</code> bounded contexts. <code>Admin Console</code> includes UI (e.g. React application) and hosting (e.g. CDN servers and storage). <code>User Management</code> includes API (e.g. Flask application), ingress (e.g. web application firewall, load balancer) and database (e.g. primary and standby instances).</p>
+<p>Toolchain includes deployment pipeline (e.g. build, test, rollout).</p>
+<p>Toolchain resources should exist before service resources, hence toolchain and service are going to be separate stacks: <code>service_stack.py</code> and <code>toolchain_stack.py</code>. Each stack deploys the associated resources and business logic.</p>
+<p>I can deploy service resources as one stack or as two or more stacks. I&rsquo;ll first cover one stack approach and then extend it to two or more stacks. I&rsquo;ll use stack per bounded context as the example for the latter.</p>
+<h2 id="service-resources-as-one-stack">Service resources as one stack</h2>
 <p><strong>app.py</strong></p>
-<p>This time, I import the workload class instead of the component class. I also change <code>constants.APP_NAME</code> from <code>UserManagementBackend</code> (component) to <code>UserManagement</code> (workload).</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#586e75"># The AWS CDK application entry point</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">import</span> constants
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.workload <span style="color:#719e07">import</span> UserManagement
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> toolchain <span style="color:#719e07">import</span> Toolchain
+<p>This is the AWS CDK application entry point. The AWS CDK application composes together resources configuration and business logic.</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#719e07">import</span> constants
+</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> service.service_stack <span style="color:#719e07">import</span> ServiceStack
+</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> toolchain.toolchain_stack <span style="color:#719e07">import</span> ToolchainStack
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>app <span style="color:#719e07">=</span> cdk<span style="color:#719e07">.</span>App()
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># Workload sandbox stack</span>
-</span></span><span style="display:flex;"><span>UserManagement(
+</span></span><span style="display:flex;"><span>ServiceStack(
 </span></span><span style="display:flex;"><span>    app,
-</span></span><span style="display:flex;"><span>    constants<span style="color:#719e07">.</span>APP_NAME <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;Sandbox&#34;</span>,
-</span></span><span style="display:flex;"><span>    api_lambda_reserved_concurrency<span style="color:#719e07">=</span><span style="color:#2aa198">1</span>,
-</span></span><span style="display:flex;"><span>    database_dynamodb_billing_mode<span style="color:#719e07">=</span>dynamodb<span style="color:#719e07">.</span>BillingMode<span style="color:#719e07">.</span>PAY_PER_REQUEST,
+</span></span><span style="display:flex;"><span>    constants<span style="color:#719e07">.</span>APP_NAME <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;-Service-Sandbox&#34;</span>,
+</span></span><span style="display:flex;"><span>    user_management_ingress_lambda_reserved_concurrency<span style="color:#719e07">=</span><span style="color:#2aa198">1</span>,
+</span></span><span style="display:flex;"><span>    user_management_database_dynamodb_billing_mode<span style="color:#719e07">=</span>dynamodb<span style="color:#719e07">.</span>BillingMode<span style="color:#719e07">.</span>PAY_PER_REQUEST,
 </span></span><span style="display:flex;"><span>    env<span style="color:#719e07">=</span>cdk<span style="color:#719e07">.</span>Environment(
 </span></span><span style="display:flex;"><span>        account<span style="color:#719e07">=</span>os<span style="color:#719e07">.</span>environ[<span style="color:#2aa198">&#34;CDK_DEFAULT_ACCOUNT&#34;</span>],
 </span></span><span style="display:flex;"><span>        region<span style="color:#719e07">=</span>os<span style="color:#719e07">.</span>environ[<span style="color:#2aa198">&#34;CDK_DEFAULT_REGION&#34;</span>],
 </span></span><span style="display:flex;"><span>    ),
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># Toolchain stack (defines the continuous deployment pipeline)</span>
-</span></span><span style="display:flex;"><span>Toolchain(
+</span></span><span style="display:flex;"><span>ToolchainStack(
 </span></span><span style="display:flex;"><span>    app,
-</span></span><span style="display:flex;"><span>    constants<span style="color:#719e07">.</span>APP_NAME <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;Toolchain&#34;</span>,
+</span></span><span style="display:flex;"><span>    constants<span style="color:#719e07">.</span>APP_NAME <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;-Toolchain-Management&#34;</span>,
 </span></span><span style="display:flex;"><span>    env<span style="color:#719e07">=</span>cdk<span style="color:#719e07">.</span>Environment(account<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;111111111111&#34;</span>, region<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;eu-west-1&#34;</span>),
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>app<span style="color:#719e07">.</span>synth()
-</span></span></code></pre></div><p><strong>usermanagement/workload.py</strong></p>
-<p>The <code>UserManagement</code> class implements a workload stack that composes the components together.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#586e75"># User Management workload deployment layout</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.chatbot_api.component <span style="color:#719e07">import</span> ChatbotAPI
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.users_api.component <span style="color:#719e07">import</span> UsersAPI
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.users_ui.component <span style="color:#719e07">import</span> UsersUI
+</span></span></code></pre></div><p>I import and instantiate the service and toolchain stacks. Service resources deploy to sandbox environment based on caller credentials. Toolchain resources deploy to management environment based on specific configuration.</p>
+<p><strong>service/service_stack.py</strong></p>
+<p><code>ServiceStack</code> class inherits the <code>Stack</code> class. <code>Hosting</code>, <code>Ingress</code> and <code>Database</code> classes inherit the <code>Construct</code> class. Stack outputs are defined in the <code>ServiceStack</code> class.</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#719e07">from</span> service.admin_console.hosting <span style="color:#719e07">import</span> Hosting <span style="color:#719e07">as</span> AdminConsoleHosting
+</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> service.user_management.ingress <span style="color:#719e07">import</span> Ingress <span style="color:#719e07">as</span> UserManagementIngress
+</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> service.user_management.database <span style="color:#719e07">import</span> Database <span style="color:#719e07">as</span> UserManagementDatabase
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">UserManagement</span>(cdk<span style="color:#719e07">.</span>Stack):
+</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">ServiceStack</span>(cdk<span style="color:#719e07">.</span>Stack):
 </span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> __init__(
 </span></span><span style="display:flex;"><span>        <span style="color:#268bd2">self</span>,
 </span></span><span style="display:flex;"><span>        scope: cdk<span style="color:#719e07">.</span>Construct,
 </span></span><span style="display:flex;"><span>        id_: <span style="color:#b58900">str</span>,
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">*</span>,
-</span></span><span style="display:flex;"><span>        api_lambda_reserved_concurrency: <span style="color:#b58900">int</span>,
-</span></span><span style="display:flex;"><span>        database_dynamodb_billing_mode: dynamodb<span style="color:#719e07">.</span>BillingMode,
+</span></span><span style="display:flex;"><span>        user_management_ingress_lambda_reserved_concurrency: <span style="color:#b58900">int</span>,
+</span></span><span style="display:flex;"><span>        user_management_database_dynamodb_billing_mode: dynamodb<span style="color:#719e07">.</span>BillingMode,
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">**</span>kwargs: Any,
 </span></span><span style="display:flex;"><span>    ):
 </span></span><span style="display:flex;"><span>        <span style="color:#b58900">super</span>()<span style="color:#719e07">.</span>__init__(scope, id_, <span style="color:#719e07">**</span>kwargs)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        chatbot_api <span style="color:#719e07">=</span> ChatbotAPI(<span style="color:#268bd2">self</span>, <span style="color:#2aa198">&#34;ChatbotAPI&#34;</span>)
-</span></span><span style="display:flex;"><span>        users_api <span style="color:#719e07">=</span> UsersAPI(
+</span></span><span style="display:flex;"><span>        user_management_ingress <span style="color:#719e07">=</span> UserManagementIngress(
 </span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;UsersAPI&#34;</span>,
-</span></span><span style="display:flex;"><span>            api_lambda_reserved_concurrency<span style="color:#719e07">=</span><span style="color:#2aa198">1</span>,
-</span></span><span style="display:flex;"><span>            database_dynamodb_billing_mode<span style="color:#719e07">=</span>dynamodb<span style="color:#719e07">.</span>BillingMode<span style="color:#719e07">.</span>PAY_PER_REQUEST,
+</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;UserManagementIngress&#34;</span>,
+</span></span><span style="display:flex;"><span>            lambda_reserved_concurrency<span style="color:#719e07">=</span>user_management_ingress_lambda_reserved_concurrency,
 </span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        users_ui <span style="color:#719e07">=</span> UsersUI(
+</span></span><span style="display:flex;"><span>        user_management_database <span style="color:#719e07">=</span> UserManagementDatabase(
+</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;UserManagementDatabase&#34;</span>,
+</span></span><span style="display:flex;"><span>            dynamodb_billing_mode<span style="color:#719e07">=</span>user_management_database_dynamodb_billing_mode,
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        admin_console_hosting <span style="color:#719e07">=</span> AdminConsoleHosting(
 </span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>, 
-</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;UsersUI&#34;</span>,
-</span></span><span style="display:flex;"><span>            chatbot_api_endpoint<span style="color:#719e07">=</span>chatbot_api<span style="color:#719e07">.</span>endpoint,
-</span></span><span style="display:flex;"><span>            users_api_endpoint<span style="color:#719e07">=</span>users_api<span style="color:#719e07">.</span>endpoint,
+</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;AdminConsoleHosting&#34;</span>,
+</span></span><span style="display:flex;"><span>            user_management_api_endpoint<span style="color:#719e07">=</span>user_management_ingress<span style="color:#719e07">.</span>api_endpoint,
 </span></span><span style="display:flex;"><span>        )
 </span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">self</span><span style="color:#719e07">.</span>users_ui_endpoint <span style="color:#719e07">=</span> cdk<span style="color:#719e07">.</span>CfnOutput(
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">self</span><span style="color:#719e07">.</span>admin_console_ui_endpoint <span style="color:#719e07">=</span> cdk<span style="color:#719e07">.</span>CfnOutput(
 </span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>, 
-</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;UsersUIEndpoint&#34;</span>, 
-</span></span><span style="display:flex;"><span>            value<span style="color:#719e07">=</span>users_ui<span style="color:#719e07">.</span>endpoint,
+</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;AdminConsoleUIEndpoint&#34;</span>, 
+</span></span><span style="display:flex;"><span>            value<span style="color:#719e07">=</span>admin_console_hosting<span style="color:#719e07">.</span>ui_endpoint,
 </span></span><span style="display:flex;"><span>        )
-</span></span></code></pre></div><p><strong>usermanagement/users_api/component.py</strong></p>
-<p>The component becomes a construct. That also means removing <code>**kwargs</code> because the <a href="https://docs.aws.amazon.com/cdk/api/v2/python/constructs/Construct.html"><code>cdk.Construct</code></a> base class accepts only <code>scope</code> and <code>id_</code> parameters. I change the definition of the <code>self.endpoint</code> (<code>self.api_endpoint</code> in the original post) attribute from <code>cdk.CfnOutput</code> to pure value, because I want to centralize all stack outputs in <code>usermanagement/workload.py</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#586e75"># Users API component</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.users_api.api.infrastructure <span style="color:#719e07">import</span> API
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.users_api.database.infrastructure <span style="color:#719e07">import</span> Database
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.users_api.monitoring.infrastructure <span style="color:#719e07">import</span> Monitoring
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">UsersAPI</span>(cdk<span style="color:#719e07">.</span>Construct):
-</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> __init__(
-</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">self</span>,
-</span></span><span style="display:flex;"><span>        scope: cdk<span style="color:#719e07">.</span>Construct,
-</span></span><span style="display:flex;"><span>        id_: <span style="color:#b58900">str</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#719e07">*</span>,
-</span></span><span style="display:flex;"><span>        api_lambda_reserved_concurrency: <span style="color:#b58900">int</span>,
-</span></span><span style="display:flex;"><span>        database_dynamodb_billing_mode: dynamodb<span style="color:#719e07">.</span>BillingMode,
-</span></span><span style="display:flex;"><span>    ):
-</span></span><span style="display:flex;"><span>        <span style="color:#b58900">super</span>()<span style="color:#719e07">.</span>__init__(scope, id_)
-</span></span><span style="display:flex;"><span>		
-</span></span><span style="display:flex;"><span>        database <span style="color:#719e07">=</span> Database(
-</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>, 
-</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;Database&#34;</span>, 
-</span></span><span style="display:flex;"><span>            dynamodb_billing_mode<span style="color:#719e07">=</span>database_dynamodb_billing_mode
-</span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        api <span style="color:#719e07">=</span> API(
-</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;API&#34;</span>,
-</span></span><span style="display:flex;"><span>            dynamodb_table_name<span style="color:#719e07">=</span>database<span style="color:#719e07">.</span>dynamodb_table<span style="color:#719e07">.</span>table_name,
-</span></span><span style="display:flex;"><span>            lambda_reserved_concurrency<span style="color:#719e07">=</span>api_lambda_reserved_concurrency,
-</span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        Monitoring(<span style="color:#268bd2">self</span>, <span style="color:#2aa198">&#34;Monitoring&#34;</span>, database<span style="color:#719e07">=</span>database, api<span style="color:#719e07">=</span>api)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        database<span style="color:#719e07">.</span>dynamodb_table<span style="color:#719e07">.</span>grant_read_write_data(api<span style="color:#719e07">.</span>lambda_function)
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">self</span><span style="color:#719e07">.</span>endpoint <span style="color:#719e07">=</span> api<span style="color:#719e07">.</span>api_gateway_http_api<span style="color:#719e07">.</span>url
-</span></span></code></pre></div><p><strong>toolchain.py</strong></p>
-<p>The only change here is to use <code>UserManagement</code> class representing the workload.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#586e75"># Continuous deployment pipeline</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">import</span> aws_cdk <span style="color:#719e07">as</span> cdk
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> aws_cdk <span style="color:#719e07">import</span> pipelines
+</span></span></code></pre></div><p>I renamed the imports to preserve the bounded context information. I also used the bounded context as prefix for construct IDs. This allows to identify which bounded context the resources belong to within the stack also after deployment.</p>
+<p><strong>toolchain/toolchain_stack.py</strong></p>
+<p><code>ToolchainStack</code> class inherits the <code>Stack</code> class.</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#719e07">import</span> aws_cdk <span style="color:#719e07">as</span> cdk
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">import</span> constants
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.workload <span style="color:#719e07">import</span> UserManagement
+</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> toolchain.deployment_pipeline <span style="color:#719e07">import</span> DeploymentPipeline
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">Toolchain</span>(cdk<span style="color:#719e07">.</span>Stack):
+</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">ToolchainStack</span>(cdk<span style="color:#719e07">.</span>Stack):
 </span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> __init__(<span style="color:#268bd2">self</span>, scope: cdk<span style="color:#719e07">.</span>Construct, id_: <span style="color:#b58900">str</span>, <span style="color:#719e07">**</span>kwargs: Any):
 </span></span><span style="display:flex;"><span>        <span style="color:#b58900">super</span>()<span style="color:#719e07">.</span>__init__(scope, id_, <span style="color:#719e07">**</span>kwargs)
-</span></span><span style="display:flex;"><span>        <span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span>        pipeline <span style="color:#719e07">=</span> pipelines<span style="color:#719e07">.</span>CodePipeline(<span style="color:#719e07">...</span>)
-</span></span><span style="display:flex;"><span>        Toolchain<span style="color:#719e07">.</span>_add_production_stage(codepipeline)
-</span></span><span style="display:flex;"><span>    <span style="color:#719e07">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        DeploymentPipeline(<span style="color:#268bd2">self</span>, <span style="color:#2aa198">&#34;DeploymentPipeline&#34;</span>)
+</span></span></code></pre></div><p><strong>toolchain/deployment_pipeline.py</strong></p>
+<p><code>DeploymentPipeline</code> class inherits the <code>Construct</code> class.</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#719e07">from</span> aws_cdk <span style="color:#719e07">import</span> pipelines
+</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> constructs <span style="color:#719e07">import</span> Construct
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">import</span> constants
+</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> service.service_stack <span style="color:#719e07">import</span> ServiceStack
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">DeploymentPipeline</span>(Construct):
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> __init__(<span style="color:#268bd2">self</span>, scope: cdk<span style="color:#719e07">.</span>Construct, id_: <span style="color:#b58900">str</span>, <span style="color:#719e07">**</span>kwargs: Any):
+</span></span><span style="display:flex;"><span>        <span style="color:#b58900">super</span>()<span style="color:#719e07">.</span>__init__(scope, id_, <span style="color:#719e07">**</span>kwargs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        pipeline <span style="color:#719e07">=</span> pipelines<span style="color:#719e07">.</span>CodePipeline(<span style="color:#268bd2">self</span>, <span style="color:#2aa198">&#34;CodePipeline&#34;</span>)
+</span></span><span style="display:flex;"><span>        DeploymentPipeline<span style="color:#719e07">.</span>_add_production_stage(pipeline)
+</span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#268bd2">@staticmethod</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> <span style="color:#268bd2">_add_production_stage</span>(<span style="color:#268bd2">self</span>, pipeline: pipelines<span style="color:#719e07">.</span>CodePipeline) <span style="color:#719e07">-&gt;</span> <span style="color:#cb4b16">None</span>:
-</span></span><span style="display:flex;"><span>        production <span style="color:#719e07">=</span> cdk<span style="color:#719e07">.</span>Stage(
+</span></span><span style="display:flex;"><span>        production_stage <span style="color:#719e07">=</span> cdk<span style="color:#719e07">.</span>Stage(
 </span></span><span style="display:flex;"><span>            pipeline,
-</span></span><span style="display:flex;"><span>            PRODUCTION_ENV_NAME,
+</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;Production&#34;</span>,
 </span></span><span style="display:flex;"><span>            env<span style="color:#719e07">=</span>cdk<span style="color:#719e07">.</span>Environment(
 </span></span><span style="display:flex;"><span>                account<span style="color:#719e07">=</span>PRODUCTION_ENV_ACCOUNT, region<span style="color:#719e07">=</span>PRODUCTION_ENV_REGION
 </span></span><span style="display:flex;"><span>            ),
 </span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        usermanagement <span style="color:#719e07">=</span> UserManagement(
-</span></span><span style="display:flex;"><span>            production,
-</span></span><span style="display:flex;"><span>            constants<span style="color:#719e07">.</span>APP_NAME <span style="color:#719e07">+</span> PRODUCTION_ENV_NAME,
-</span></span><span style="display:flex;"><span>            api_lambda_reserved_concurrency<span style="color:#719e07">=</span><span style="color:#2aa198">10</span>,
-</span></span><span style="display:flex;"><span>            database_dynamodb_billing_mode<span style="color:#719e07">=</span>dynamodb<span style="color:#719e07">.</span>BillingMode<span style="color:#719e07">.</span>PROVISIONED,
-</span></span><span style="display:flex;"><span>            stack_name<span style="color:#719e07">=</span>constants<span style="color:#719e07">.</span>APP_NAME <span style="color:#719e07">+</span> PRODUCTION_ENV_NAME,
+</span></span><span style="display:flex;"><span>        service_stack <span style="color:#719e07">=</span> ServiceStack(
+</span></span><span style="display:flex;"><span>            production_stage,
+</span></span><span style="display:flex;"><span>            constants<span style="color:#719e07">.</span>APP_NAME <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;-Service-Production&#34;</span>,
+</span></span><span style="display:flex;"><span>            stack_name<span style="color:#719e07">=</span>constants<span style="color:#719e07">.</span>APP_NAME <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;-Service-Production&#34;</span>,
+</span></span><span style="display:flex;"><span>            user_management_ingress_lambda_reserved_concurrency<span style="color:#719e07">=</span><span style="color:#2aa198">10</span>,
+</span></span><span style="display:flex;"><span>            user_management_database_dynamodb_billing_mode<span style="color:#719e07">=</span>dynamodb<span style="color:#719e07">.</span>BillingMode<span style="color:#719e07">.</span>PROVISIONED,
 </span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        <span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span>        pipeline<span style="color:#719e07">.</span>add_stage(production, post<span style="color:#719e07">=</span>[smoke_test])
-</span></span></code></pre></div><h2 id="each-component-as-one-or-more-stacks">Each component as one or more stacks</h2>
-<p><strong>app.py</strong></p>
-<p>I still import and use the workload class here. You can notice that I specify a new <code>stack_namespace</code> parameter instead of ID parameter. The next <code>usermanagement/workload.py</code> section dives into that.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#586e75"># The AWS CDK application entry point</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">import</span> constants
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.workload <span style="color:#719e07">import</span> UserManagement
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> toolchain <span style="color:#719e07">import</span> Toolchain
+</span></span><span style="display:flex;"><span>        pipeline<span style="color:#719e07">.</span>add_stage(production_stage)
+</span></span></code></pre></div><p>Deployment pipeline creates an instance of the <code>ServiceStack</code> and passes the production environment configuration parameters.</p>
+<h2 id="service-resources-as-stack-per-bounded-context">Service resources as stack per bounded context</h2>
+<p>Now I create a stack for each bounded context: <code>admin_console_stack.py</code> and <code>user_management_stack.py</code>. I keep the <code>service_stack.py</code> as the interface for the toolchain. <code>service_stack.py</code> will compose the bounded context stacks together.</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>service/
+</span></span><span style="display:flex;"><span>    admin_console/
+</span></span><span style="display:flex;"><span>        ui/
+</span></span><span style="display:flex;"><span>            index.html
+</span></span><span style="display:flex;"><span>        hosting.py
+</span></span><span style="display:flex;"><span>        admin_console_stack.py
+</span></span><span style="display:flex;"><span>    user_management/
+</span></span><span style="display:flex;"><span>        api/
+</span></span><span style="display:flex;"><span>            app.py
+</span></span><span style="display:flex;"><span>        ingress.py
+</span></span><span style="display:flex;"><span>        database.py
+</span></span><span style="display:flex;"><span>        user_management_stack.py
+</span></span><span style="display:flex;"><span>    service_stack.py
+</span></span><span style="display:flex;"><span>app.py
+</span></span><span style="display:flex;"><span>toolchain/
+</span></span><span style="display:flex;"><span>    deployment_pipeline.py
+</span></span><span style="display:flex;"><span>    toolchain_stack.py
+</span></span></code></pre></div><p>There is no change in <code>app.py</code> and <code>toolchain/deployment_pipeline.py</code>, because the service interface doesn&rsquo;t change.</p>
+<p><strong>service/service_stack.py</strong></p>
+<p><code>ServiceStack</code> class is a regular object.</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#719e07">from</span> service.admin_console.admin_console_stack <span style="color:#719e07">import</span> AdminConsoleStack
+</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> service.user_management.user_management_stack <span style="color:#719e07">import</span> UserManagementStack
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>app <span style="color:#719e07">=</span> cdk<span style="color:#719e07">.</span>App()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># Workload sandbox stack</span>
-</span></span><span style="display:flex;"><span>UserManagement(
-</span></span><span style="display:flex;"><span>    app,
-</span></span><span style="display:flex;"><span>    stack_namespace<span style="color:#719e07">=</span>constants<span style="color:#719e07">.</span>APP_NAME <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;Sandbox&#34;</span>,
-</span></span><span style="display:flex;"><span>    api_lambda_reserved_concurrency<span style="color:#719e07">=</span><span style="color:#2aa198">1</span>,
-</span></span><span style="display:flex;"><span>    database_dynamodb_billing_mode<span style="color:#719e07">=</span>dynamodb<span style="color:#719e07">.</span>BillingMode<span style="color:#719e07">.</span>PAY_PER_REQUEST,
-</span></span><span style="display:flex;"><span>    env<span style="color:#719e07">=</span>cdk<span style="color:#719e07">.</span>Environment(
-</span></span><span style="display:flex;"><span>        account<span style="color:#719e07">=</span>os<span style="color:#719e07">.</span>environ[<span style="color:#2aa198">&#34;CDK_DEFAULT_ACCOUNT&#34;</span>],
-</span></span><span style="display:flex;"><span>        region<span style="color:#719e07">=</span>os<span style="color:#719e07">.</span>environ[<span style="color:#2aa198">&#34;CDK_DEFAULT_REGION&#34;</span>],
-</span></span><span style="display:flex;"><span>    ),
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># Toolchain stack (defines the continuous deployment pipeline)</span>
-</span></span><span style="display:flex;"><span>Toolchain(
-</span></span><span style="display:flex;"><span>    app,
-</span></span><span style="display:flex;"><span>    constants<span style="color:#719e07">.</span>APP_NAME <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;Toolchain&#34;</span>,
-</span></span><span style="display:flex;"><span>    env<span style="color:#719e07">=</span>cdk<span style="color:#719e07">.</span>Environment(account<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;111111111111&#34;</span>, region<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;eu-west-1&#34;</span>),
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>app<span style="color:#719e07">.</span>synth()
-</span></span></code></pre></div><p><strong>usermanagement/workload.py</strong></p>
-<p>The <code>UserManagement</code> class implements a workload container object (<strong>not a stack</strong>) that composes the components together. It passes the <code>scope</code> to each component stack. The new <code>stack_namespace</code> parameter sets prefix for component stacks ID and name. Now, I set the stack name in <code>UserManagement</code> class and not in the toolchain. This is because the toolchain can&rsquo;t pass a single stack name as it did in the single stack option. Hence, the <code>UserManagement</code> container object should assume that responsiblity based on the <code>stack_namespace</code> parameter.</p>
-<p>Since the <code>UserManagement</code> class is not a stack, it doesn&rsquo;t (and can&rsquo;t) define stack outputs. The component stacks define their own outputs. I can still define dependencies between the stacks here if needed (explicitly or implicitly).</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#586e75"># User Management workload</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.chatbot_api.component <span style="color:#719e07">import</span> ChatbotAPI
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.users_api.component <span style="color:#719e07">import</span> UsersAPI
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.users_ui.component <span style="color:#719e07">import</span> UsersUI
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">UserManagement</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> __init__(
-</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">self</span>,
-</span></span><span style="display:flex;"><span>        scope: cdk<span style="color:#719e07">.</span>Construct,
-</span></span><span style="display:flex;"><span>        <span style="color:#719e07">*</span>,
-</span></span><span style="display:flex;"><span>        stack_namespace: <span style="color:#b58900">str</span>,
-</span></span><span style="display:flex;"><span>        api_lambda_reserved_concurrency: <span style="color:#b58900">int</span>,
-</span></span><span style="display:flex;"><span>        database_dynamodb_billing_mode: dynamodb<span style="color:#719e07">.</span>BillingMode,
-</span></span><span style="display:flex;"><span>        <span style="color:#719e07">**</span>kwargs: Any,
-</span></span><span style="display:flex;"><span>    ):
-</span></span><span style="display:flex;"><span>        chatbot_api <span style="color:#719e07">=</span> ChatbotAPI(
-</span></span><span style="display:flex;"><span>            scope,
-</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">f</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">{</span>stack_namespace<span style="color:#2aa198">}</span><span style="color:#2aa198">-ChatbotAPI&#34;</span>,
-</span></span><span style="display:flex;"><span>            stack_name<span style="color:#719e07">=</span><span style="color:#2aa198">f</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">{</span>stack_namespace<span style="color:#2aa198">}</span><span style="color:#2aa198">-ChatbotAPI&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#719e07">**</span>kwargs,
-</span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        users_api <span style="color:#719e07">=</span> UsersAPI(
-</span></span><span style="display:flex;"><span>            scope,
-</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">f</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">{</span>stack_namespace<span style="color:#2aa198">}</span><span style="color:#2aa198">-UsersAPI&#34;</span>,
-</span></span><span style="display:flex;"><span>            api_lambda_reserved_concurrency<span style="color:#719e07">=</span><span style="color:#2aa198">1</span>,
-</span></span><span style="display:flex;"><span>            database_dynamodb_billing_mode<span style="color:#719e07">=</span>dynamodb<span style="color:#719e07">.</span>BillingMode<span style="color:#719e07">.</span>PAY_PER_REQUEST,
-</span></span><span style="display:flex;"><span>            stack_name<span style="color:#719e07">=</span><span style="color:#2aa198">f</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">{</span>stack_namespace<span style="color:#2aa198">}</span><span style="color:#2aa198">-UsersAPI&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#719e07">**</span>kwargs,
-</span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        users_ui <span style="color:#719e07">=</span> UsersUI(
-</span></span><span style="display:flex;"><span>            scope,
-</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">f</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">{</span>stack_namespace<span style="color:#2aa198">}</span><span style="color:#2aa198">-UsersUI&#34;</span>,
-</span></span><span style="display:flex;"><span>            chatbot_endpoint<span style="color:#719e07">=</span>chatbot_api<span style="color:#719e07">.</span>endpoint,
-</span></span><span style="display:flex;"><span>            users_api_endpoint<span style="color:#719e07">=</span>users_api<span style="color:#719e07">.</span>endpoint,
-</span></span><span style="display:flex;"><span>            stack_name<span style="color:#719e07">=</span><span style="color:#2aa198">f</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">{</span>stack_namespace<span style="color:#2aa198">}</span><span style="color:#2aa198">-UsersUI&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#719e07">**</span>kwargs,
-</span></span><span style="display:flex;"><span>        )
-</span></span></code></pre></div><p><strong>usermanagement/users_api/component.py</strong></p>
-<p>The implementation here is similar to the original post. The only differences are the imports namespace that starts on the workload level and the stack output attribute name.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#586e75"># Users API component deployment layout</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.users_api.api.infrastructure <span style="color:#719e07">import</span> API
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.users_api.database.infrastructure <span style="color:#719e07">import</span> Database
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.users_api.monitoring.infrastructure <span style="color:#719e07">import</span> Monitoring
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">UsersAPI</span>(cdk<span style="color:#719e07">.</span>Stack):
+</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">ServiceStack</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> __init__(
 </span></span><span style="display:flex;"><span>        <span style="color:#268bd2">self</span>,
 </span></span><span style="display:flex;"><span>        scope: cdk<span style="color:#719e07">.</span>Construct,
 </span></span><span style="display:flex;"><span>        id_: <span style="color:#b58900">str</span>,
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">*</span>,
-</span></span><span style="display:flex;"><span>        api_lambda_reserved_concurrency: <span style="color:#b58900">int</span>,
+</span></span><span style="display:flex;"><span>        user_management_ingress_lambda_reserved_concurrency: <span style="color:#b58900">int</span>,
+</span></span><span style="display:flex;"><span>        user_management_database_dynamodb_billing_mode: dynamodb<span style="color:#719e07">.</span>BillingMode,
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">**</span>kwargs: Any,
+</span></span><span style="display:flex;"><span>    ):
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">if</span> <span style="color:#2aa198">&#34;stack_name&#34;</span> <span style="color:#719e07">in</span> kwargs:
+</span></span><span style="display:flex;"><span>            stack_name_prefix <span style="color:#719e07">=</span> kwargs[<span style="color:#2aa198">&#34;stack_name&#34;</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#719e07">del</span> kwargs[<span style="color:#2aa198">&#34;stack_name&#34;</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">else</span>:
+</span></span><span style="display:flex;"><span>            stack_name_prefix <span style="color:#719e07">=</span> id_
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        user_management_stack <span style="color:#719e07">=</span> UserManagementStack(
+</span></span><span style="display:flex;"><span>            scope,
+</span></span><span style="display:flex;"><span>            stack_name_prefix <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;-UserManagement&#34;</span>,
+</span></span><span style="display:flex;"><span>            stack_name<span style="color:#719e07">=</span>stack_name_prefix <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;-UserManagement&#34;</span>,
+</span></span><span style="display:flex;"><span>            ingress_lambda_reserved_concurrency<span style="color:#719e07">=</span>user_management_ingress_lambda_reserved_concurrency,
+</span></span><span style="display:flex;"><span>            database_dynamodb_billing_mode<span style="color:#719e07">=</span>user_management_database_dynamodb_billing_mode,
+</span></span><span style="display:flex;"><span>            <span style="color:#719e07">**</span>kwargs,
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        admin_console_stack <span style="color:#719e07">=</span> AdminConsoleStack(
+</span></span><span style="display:flex;"><span>            scope,
+</span></span><span style="display:flex;"><span>            stack_name_prefix <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;-AdminConsole&#34;</span>,
+</span></span><span style="display:flex;"><span>            stack_name<span style="color:#719e07">=</span>stack_name_prefix <span style="color:#719e07">+</span> <span style="color:#2aa198">&#34;-AdminConsole&#34;</span>,
+</span></span><span style="display:flex;"><span>            user_management_api_endpoint<span style="color:#719e07">=</span>user_management_stack<span style="color:#719e07">.</span>api_endpoint,
+</span></span><span style="display:flex;"><span>            <span style="color:#719e07">**</span>kwargs,
+</span></span><span style="display:flex;"><span>        )
+</span></span></code></pre></div><p><code>ServiceStack</code> class is a proxy object. It passes <code>scope</code> as is to each bounded context stack. The callers always pass construct ID, and may optionally pass stack name. If the callers specify stack name, <code>ServiceStack</code> uses the stack name as prefix for each bounded context stack construct ID and stack name. Otherwise, <code>ServiceStack</code> uses the construct ID as the prefix. This approach allows to group bounded contexts under the same service namespace.</p>
+<p>Since <code>ServiceStack</code> class is not a stack, it doesn&rsquo;t (and can&rsquo;t) define stack outputs. The bounded context stacks define their stack outputs. I can still define dependencies between the stacks if needed (explicitly or implicitly). For an example, I pass <code>User Management</code> API endpoint to <code>Admin Console</code>.</p>
+<p><strong>service/user_management/user_management_stack.py</strong></p>
+<p><code>UserManagementStack</code> class inherits the <code>Stack</code> class.</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#719e07">from</span> service.user_management.ingress <span style="color:#719e07">import</span> Ingress
+</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> service.user_management.database <span style="color:#719e07">import</span> Database
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">UserManagementStack</span>(cdk<span style="color:#719e07">.</span>Stack):
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> __init__(
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">self</span>,
+</span></span><span style="display:flex;"><span>        scope: cdk<span style="color:#719e07">.</span>Construct,
+</span></span><span style="display:flex;"><span>        id_: <span style="color:#b58900">str</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">*</span>,
+</span></span><span style="display:flex;"><span>        ingress_lambda_reserved_concurrency: <span style="color:#b58900">int</span>,
 </span></span><span style="display:flex;"><span>        database_dynamodb_billing_mode: dynamodb<span style="color:#719e07">.</span>BillingMode,
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">**</span>kwargs: Any,
 </span></span><span style="display:flex;"><span>    ):
-</span></span><span style="display:flex;"><span>        <span style="color:#b58900">super</span>()<span style="color:#719e07">.</span>__init__(scope, id_, <span style="color:#719e07">**</span>kwargs: Any,)
-</span></span><span style="display:flex;"><span>		
-</span></span><span style="display:flex;"><span>        database <span style="color:#719e07">=</span> Database(
-</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>, 
-</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;Database&#34;</span>, 
-</span></span><span style="display:flex;"><span>            dynamodb_billing_mode<span style="color:#719e07">=</span>database_dynamodb_billing_mode
-</span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        api <span style="color:#719e07">=</span> API(
-</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;API&#34;</span>,
-</span></span><span style="display:flex;"><span>            dynamodb_table_name<span style="color:#719e07">=</span>database<span style="color:#719e07">.</span>dynamodb_table<span style="color:#719e07">.</span>table_name,
-</span></span><span style="display:flex;"><span>            lambda_reserved_concurrency<span style="color:#719e07">=</span>api_lambda_reserved_concurrency,
-</span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        Monitoring(<span style="color:#268bd2">self</span>, <span style="color:#2aa198">&#34;Monitoring&#34;</span>, database<span style="color:#719e07">=</span>database, api<span style="color:#719e07">=</span>api)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        database<span style="color:#719e07">.</span>dynamodb_table<span style="color:#719e07">.</span>grant_read_write_data(api<span style="color:#719e07">.</span>lambda_function)
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">self</span><span style="color:#719e07">.</span>endpoint <span style="color:#719e07">=</span> cdk<span style="color:#719e07">.</span>CfnOutput(
-</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>, 
-</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;Endpoint&#34;</span>, 
-</span></span><span style="display:flex;"><span>            value<span style="color:#719e07">=</span>api<span style="color:#719e07">.</span>api_gateway_http_api<span style="color:#719e07">.</span>url,
-</span></span><span style="display:flex;"><span>        )
-</span></span></code></pre></div><p><strong>toolchain.py</strong></p>
-<p>Since <code>UserManagement</code> is a container object, this time the toolchain passes only the <code>stack_namespace</code> parameter. The toolchain doesn&rsquo;t pass stack ID and name parameters, because <code>UserManagement</code> defines them.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#586e75"># Continuous deployment pipeline</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">import</span> aws_cdk <span style="color:#719e07">as</span> cdk
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> aws_cdk <span style="color:#719e07">import</span> pipelines
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">import</span> constants
-</span></span><span style="display:flex;"><span><span style="color:#719e07">from</span> usermanagement.workload <span style="color:#719e07">import</span> UserManagement
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">Toolchain</span>(cdk<span style="color:#719e07">.</span>Stack):
-</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> __init__(<span style="color:#268bd2">self</span>, scope: cdk<span style="color:#719e07">.</span>Construct, id_: <span style="color:#b58900">str</span>, <span style="color:#719e07">**</span>kwargs: Any):
 </span></span><span style="display:flex;"><span>        <span style="color:#b58900">super</span>()<span style="color:#719e07">.</span>__init__(scope, id_, <span style="color:#719e07">**</span>kwargs)
-</span></span><span style="display:flex;"><span>        <span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span>        pipeline <span style="color:#719e07">=</span> pipelines<span style="color:#719e07">.</span>CodePipeline(<span style="color:#719e07">...</span>)
-</span></span><span style="display:flex;"><span>        Toolchain<span style="color:#719e07">.</span>_add_production_stage(codepipeline)
-</span></span><span style="display:flex;"><span>    <span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">@staticmethod</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> <span style="color:#268bd2">_add_production_stage</span>(<span style="color:#268bd2">self</span>, pipeline: pipelines<span style="color:#719e07">.</span>CodePipeline) <span style="color:#719e07">-&gt;</span> <span style="color:#cb4b16">None</span>:
-</span></span><span style="display:flex;"><span>        production <span style="color:#719e07">=</span> cdk<span style="color:#719e07">.</span>Stage(
-</span></span><span style="display:flex;"><span>            pipeline,
-</span></span><span style="display:flex;"><span>            PRODUCTION_ENV_NAME,
-</span></span><span style="display:flex;"><span>            env<span style="color:#719e07">=</span>cdk<span style="color:#719e07">.</span>Environment(
-</span></span><span style="display:flex;"><span>                account<span style="color:#719e07">=</span>PRODUCTION_ENV_ACCOUNT, region<span style="color:#719e07">=</span>PRODUCTION_ENV_REGION
-</span></span><span style="display:flex;"><span>            ),
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ingress <span style="color:#719e07">=</span> Ingress(
+</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;Ingress&#34;</span>,
+</span></span><span style="display:flex;"><span>            lambda_reserved_concurrency<span style="color:#719e07">=</span>ingress_lambda_reserved_concurrency,
 </span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        usermanagement <span style="color:#719e07">=</span> UserManagement(
-</span></span><span style="display:flex;"><span>            production,
-</span></span><span style="display:flex;"><span>            stack_namespace<span style="color:#719e07">=</span>constants<span style="color:#719e07">.</span>APP_NAME <span style="color:#719e07">+</span> PRODUCTION_ENV_NAME,
-</span></span><span style="display:flex;"><span>            api_lambda_reserved_concurrency<span style="color:#719e07">=</span><span style="color:#2aa198">10</span>,
-</span></span><span style="display:flex;"><span>            database_dynamodb_billing_mode<span style="color:#719e07">=</span>dynamodb<span style="color:#719e07">.</span>BillingMode<span style="color:#719e07">.</span>PROVISIONED,
+</span></span><span style="display:flex;"><span>        database <span style="color:#719e07">=</span> Database(
+</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;Database&#34;</span>,
+</span></span><span style="display:flex;"><span>            dynamodb_billing_mode<span style="color:#719e07">=</span>database_dynamodb_billing_mode,
 </span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        <span style="color:#719e07">...</span>
-</span></span><span style="display:flex;"><span>        pipeline<span style="color:#719e07">.</span>add_stage(production, post<span style="color:#719e07">=</span>[smoke_test])
-</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
-<p>In this post, I described the recommended project structure for monolithic applications. The options covered range from deploying the application as a single stack to using a stack per component. You can also create more than one stack in a component if needed. I used a single pipeline for the application. If you would like to create more than one pipeline (e.g. pipeline per component), look at <a href="https://aws.amazon.com/blogs/devops/integrate-github-monorepo-with-aws-codepipeline-to-run-project-specific-ci-cd-pipelines/">Integrate GitHub monorepo with AWS CodePipeline to run project-specific CI/CD pipelines</a> blog post.</p>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        cdk<span style="color:#719e07">.</span>CfnOutput(
+</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>, 
+</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;APIEndpoint&#34;</span>, 
+</span></span><span style="display:flex;"><span>            value<span style="color:#719e07">=</span>ingress<span style="color:#719e07">.</span>api_gateway_http_api<span style="color:#719e07">.</span>url,
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">self</span><span style="color:#719e07">.</span>api_endpoint <span style="color:#719e07">=</span> ingress<span style="color:#719e07">.</span>api_gateway_http_api<span style="color:#719e07">.</span>url
+</span></span></code></pre></div><p>Here I don&rsquo;t need to rename imports because the stack name will act as bounded context namespace.</p>
+<p><strong>service/admin_console/admin_console_stack.py</strong></p>
+<p><code>AdminConsoleStack</code> class inherits the <code>Stack</code> class.</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#719e07">from</span> service.admin_console.hosting <span style="color:#719e07">import</span> Hosting
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">AdminConsoleStack</span>(cdk<span style="color:#719e07">.</span>Stack):
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> __init__(
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">self</span>,
+</span></span><span style="display:flex;"><span>        scope: cdk<span style="color:#719e07">.</span>Construct,
+</span></span><span style="display:flex;"><span>        id_: <span style="color:#b58900">str</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">*</span>,
+</span></span><span style="display:flex;"><span>        user_management_api_endpoint: <span style="color:#b58900">str</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">**</span>kwargs: Any,
+</span></span><span style="display:flex;"><span>    ):
+</span></span><span style="display:flex;"><span>        <span style="color:#b58900">super</span>()<span style="color:#719e07">.</span>__init__(scope, id_, <span style="color:#719e07">**</span>kwargs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        hosting <span style="color:#719e07">=</span> Hosting(
+</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>, 
+</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;Hosting&#34;</span>,
+</span></span><span style="display:flex;"><span>            user_management_api_endpoint<span style="color:#719e07">=</span>user_management_api_endpoint,
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>        cdk<span style="color:#719e07">.</span>CfnOutput(
+</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">self</span>, 
+</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;UIEndpoint&#34;</span>, 
+</span></span><span style="display:flex;"><span>            value<span style="color:#719e07">=</span>hosting<span style="color:#719e07">.</span>ui_endpoint,
+</span></span><span style="display:flex;"><span>        )
+</span></span></code></pre></div><p>Also here I don&rsquo;t need to rename imports because the stack name will act as bounded context namespace.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this post, I described the recommended AWS CDK project structure for monolithic Python applications. The blog post covered one stack and two or more stack deployment models. The application used a single deployment pipeline. If you want to create more than one deployment pipeline (e.g. deployment pipeline per bounded context), take a look at <a href="https://aws.amazon.com/blogs/devops/integrate-github-monorepo-with-aws-codepipeline-to-run-project-specific-ci-cd-pipelines/">Integrate GitHub monorepo with AWS CodePipeline to run project-specific CI/CD pipelines</a> blog post.</p>
 <p>If you think I’ve missed something, feel free to ping me <a href="https://twitter.com/alex_pulver">@alex_pulver</a>. Happy coding!</p>
 
 		</div>

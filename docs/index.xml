@@ -25,8 +25,9 @@ Context From my experience, builders use configuration files mainly to avoid: 1/
       <pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://softwhat.com/recommended-aws-cdk-project-structure-for-monolithic-python-applications/</guid>
-      <description>In my Recommended AWS CDK project structure for Python applications blog post, the application is a component (User Management Backend) with a dedicated Git repository and a single pipeline. This is the option #4 in the figure below.
-Source: https://d1.awsstatic.com/events/Summits/reinvent2022/DOP321_Organize-application-components-into-repositories-and-pipelines-with-AWS-CDK.pdf Some builders initially prefer to manage the workload as a monolith in a single repository with one or more pipelines. In this post, I describe an application for options #1 and #2 in the above figure.</description>
+      <description>July 17, 2023: Updated the guidance to align with Application Design Framework recommendations.
+My Recommended AWS CDK project structure for Python applications blog post describes an application for a single bounded context - User Management Backend service. The application includes a dedicated repository with source code for the service and the toolchain. This is the option #4 in the figure below.
+Source: https://d1.awsstatic.com/events/Summits/reinvent2022/DOP321_Organize-application-components-into-repositories-and-pipelines-with-AWS-CDK.pdf Some builders initially prefer to start with an application that includes multiple bounded contexts - options #1 and #2 above.</description>
     </item>
     
     <item>
