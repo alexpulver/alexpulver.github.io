@@ -4,131 +4,94 @@
     <title>Posts on SoftWhat?</title>
     <link>https://softwhat.com/posts/</link>
     <description>Recent content in Posts on SoftWhat?</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© 2016 Alex Pulver</copyright>
-    <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://softwhat.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Mar 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://softwhat.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Manage AWS CDK Application Configuration</title>
       <link>https://softwhat.com/how-to-manage-aws-cdk-application-configuration/</link>
       <pubDate>Sun, 26 Mar 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/how-to-manage-aws-cdk-application-configuration/</guid>
-      <description>AWS CDK applications need to maintain certain configuration in the version control repository. Configuration can include application name, programming language version, version control branch, build configuration, account and Region per environment, etc. I often see the use of configuration files (e.g. cdk.json) for this purpose, in formats such as JSON and YAML.
-In this post, I describe my recommendations for managing AWS CDK application configuration.
-Context From my experience, builders use configuration files mainly to avoid: 1/ changing the application code because they don&amp;rsquo;t own it 2/ triggering a build 3/ performing a deployment.</description>
+      <description>&lt;p&gt;AWS CDK applications need to maintain certain configuration in the version control repository. Configuration can include application name, programming language version, version control branch, build configuration, account and Region per environment, etc. I often see the use of configuration files (e.g. &lt;code&gt;cdk.json&lt;/code&gt;) for this purpose, in formats such as JSON and YAML.&lt;/p&gt;&#xA;&lt;p&gt;In this post, I describe my recommendations for managing AWS CDK application configuration.&lt;/p&gt;&#xA;&lt;h2 id=&#34;context&#34;&gt;Context&lt;/h2&gt;&#xA;&lt;p&gt;From my experience, builders use configuration files mainly to avoid: 1/ changing the application code because they don&amp;rsquo;t own it 2/ triggering a build 3/ performing a deployment. With the AWS CDK, I think neither of these reasons makes configuration files more efficient than source code. Let&amp;rsquo;s break them down below.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Recommended AWS CDK Project Structure for Monolithic Python Applications</title>
       <link>https://softwhat.com/recommended-aws-cdk-project-structure-for-monolithic-python-applications/</link>
       <pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/recommended-aws-cdk-project-structure-for-monolithic-python-applications/</guid>
-      <description>July 17, 2023: Updated the guidance to align with Application Design Framework recommendations.
-My Recommended AWS CDK project structure for Python applications blog post describes an application for a single bounded context - User Management Backend service. The application includes a dedicated repository with source code for the service and the toolchain. This is the option #4 in the figure below.
-Source: https://d1.awsstatic.com/events/Summits/reinvent2022/DOP321_Organize-application-components-into-repositories-and-pipelines-with-AWS-CDK.pdf Some builders initially prefer to start with an application that includes multiple bounded contexts - options #1 and #2 above.</description>
+      <description>&lt;p&gt;&lt;strong&gt;July 17, 2023:&lt;/strong&gt; Updated the guidance to align with &lt;a href=&#34;https://applicationdesignframework.com/&#34;&gt;Application Design Framework&lt;/a&gt; recommendations.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;My &lt;a href=&#34;https://aws.amazon.com/blogs/developer/recommended-aws-cdk-project-structure-for-python-applications/&#34;&gt;Recommended AWS CDK project structure for Python applications&lt;/a&gt; blog post describes an application for a single bounded context - &lt;code&gt;User Management Backend&lt;/code&gt; service. The application includes a dedicated repository with source code for the service and the toolchain. This is the option #4 in the figure below.&lt;/p&gt;&#xA;&lt;figure&gt;&lt;img src=&#34;https://softwhat.com/images/recommended-aws-cdk-project-structure-for-monolithic-python-applications-1.png&#34;&gt;&lt;figcaption&gt;&#xA;      &lt;h4&gt;Source: https://d1.awsstatic.com/events/Summits/reinvent2022/DOP321_Organize-application-components-into-repositories-and-pipelines-with-AWS-CDK.pdf&lt;/h4&gt;&#xA;    &lt;/figcaption&gt;&#xA;&lt;/figure&gt;&#xA;&#xA;&lt;p&gt;Some builders initially prefer to start with an application that includes multiple bounded contexts - options #1 and #2 above. In this post, I describe the recommended AWS CDK project structure for these options, with #1 as the example.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Aligning SaaS and Service Planes Definitions</title>
       <link>https://softwhat.com/aligning-saas-and-service-planes-definitions/</link>
       <pubDate>Sun, 05 Feb 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/aligning-saas-and-service-planes-definitions/</guid>
-      <description>Martin Fowler writes the following about Evocative Names in his Writing Software Patterns article:
-One of the valuable features of patterns work is that it develops a vocabulary with which we can talk about how to do things.
-Having a clear understanding of what names mean helps communicate intent. When building SaaS applications on AWS, you might stumble into the following terminology:
-SaaS control plane and SaaS application plane Service control plane and Service data plane In this blog post, I describe the definitions of these terms and explain how they align.</description>
+      <description>&lt;p&gt;Martin Fowler writes the following about &lt;em&gt;Evocative Names&lt;/em&gt; in his &lt;a href=&#34;https://martinfowler.com/articles/writingPatterns.html&#34;&gt;Writing Software Patterns&lt;/a&gt; article:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;One of the valuable features of patterns work is that it develops a vocabulary with which we can talk about how to do things.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;Having a clear understanding of what names mean helps communicate intent. When building SaaS applications on AWS, you might stumble into the following terminology:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;SaaS control plane and SaaS application plane&lt;/li&gt;&#xA;&lt;li&gt;Service control plane and Service data plane&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;In this blog post, I describe the definitions of these terms and explain how they align.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>cdk-chalice Adds Support for Accessing Chalice-generated CloudFormation Resources</title>
       <link>https://softwhat.com/cdk-chalice-adds-support-for-accessing-chalice-generated-cloudformation-resources/</link>
       <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/cdk-chalice-adds-support-for-accessing-chalice-generated-cloudformation-resources/</guid>
-      <description>cdk-chalice 0.8.1 adds support for accessing AWS Chalice-generated CloudFormation resources as native CDK objects. It is useful if you need to explicitly reference these resources in the broader AWS Cloud Development Kit (AWS CDK) application, or customize the resources generated by Chalice. In this blog post, I will explain how this feature works and provide an example.
-The new capability is based on the CDK cloudformation-include module, which was released as a developer preview in CDK 1.</description>
+      <description>&lt;p&gt;cdk-chalice 0.8.1 adds support for accessing AWS Chalice-generated CloudFormation resources as &lt;strong&gt;native CDK objects&lt;/strong&gt;. It is useful if you need to explicitly reference these resources in the broader AWS Cloud Development Kit (AWS CDK) application, or customize the resources generated by Chalice. In this blog post, I will explain how this feature works and provide an example.&lt;/p&gt;&#xA;&lt;p&gt;The new capability is based on the CDK &lt;a href=&#34;https://docs.aws.amazon.com/cdk/api/latest/docs/cloudformation-include-readme.html&#34;&gt;cloudformation-include&lt;/a&gt; module, which was released as a &lt;a href=&#34;https://docs.aws.amazon.com/cdk/latest/guide/reference.html#aws_construct_lib_stability&#34;&gt;developer preview&lt;/a&gt; in CDK 1.64.1. That CDK version is now the minimal requirement for cdk-chalice. This module contains a set of classes whose goal is to facilitate working with existing CloudFormation templates in the CDK. It can be thought of as an extension of the capabilities of the &lt;a href=&#34;https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.CfnInclude.html&#34;&gt;&lt;code&gt;CfnInclude&lt;/code&gt; class&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Thoughts on Interoperability Between AWS CDK, AWS SAM and AWS Chalice</title>
       <link>https://softwhat.com/thoughts-on-interoperability-between-aws-cdk-aws-sam-and-aws-chalice/</link>
       <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/thoughts-on-interoperability-between-aws-cdk-aws-sam-and-aws-chalice/</guid>
-      <description>Today, AWS has three frameworks to build infrastructure logic and runtime logic for applications based on Amazon API Gateway and AWS Lambda. These are the AWS Cloud Development Kit (AWS CDK), AWS Serverless Application Model (AWS SAM), and AWS Chalice. In this blog post, I will describe tradeoffs between some combinations of them.
-To begin with, AWS recently announced the general availability of SAM CLI (v1.0.0). SAM CLI allows to locally invoke Lambda functions generated by CDK.</description>
+      <description>&lt;p&gt;Today, AWS has three frameworks to build infrastructure logic and runtime logic for applications based on Amazon API Gateway and AWS Lambda. These are the &lt;a href=&#34;https://aws.amazon.com/cdk/&#34;&gt;AWS Cloud Development Kit (AWS CDK)&lt;/a&gt;, &lt;a href=&#34;https://aws.amazon.com/serverless/sam/&#34;&gt;AWS Serverless Application Model (AWS SAM)&lt;/a&gt;, and &lt;a href=&#34;https://aws.github.io/chalice/&#34;&gt;AWS Chalice&lt;/a&gt;. In this blog post, I will describe tradeoffs between some combinations of them.&lt;/p&gt;&#xA;&lt;figure&gt;&lt;img src=&#34;https://softwhat.com/images/thoughts-on-interoperability-between-aws-cdk-aws-sam-and-aws-chalice-1.png&#34; width=&#34;80%&#34;&gt;&#xA;&lt;/figure&gt;&#xA;&#xA;&lt;p&gt;To begin with, AWS &lt;a href=&#34;https://aws.amazon.com/blogs/compute/the-aws-serverless-application-model-cli-is-now-generally-available/&#34;&gt;recently announced&lt;/a&gt; the general availability of SAM CLI (v1.0.0). SAM CLI allows to &lt;a href=&#34;https://docs.aws.amazon.com/cdk/latest/guide/sam.html&#34;&gt;locally&lt;/a&gt; invoke Lambda functions generated by CDK. &lt;a href=&#34;https://aws.amazon.com/cdk/faqs/#CloudFormation_and_SAM&#34;&gt;CloudFormation and SAM&lt;/a&gt; section in CDK FAQ provides a general guideline for choosing between CDK and CloudFormation/SAM. In a gist, it says the following: &lt;em&gt;&amp;ldquo;If you prefer defining your serverless infrastructure in concise declarative templates, SAM is the better fit. If you want to define your AWS infrastructure in a familiar programming language, we encourage you to try out AWS CDK.&amp;rdquo;&lt;/em&gt;. I would like to further expand on that and add Chalice into the mix.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Adapting Maslow&#39;s Pyramid to Personal Development</title>
       <link>https://softwhat.com/adapting-maslows-pyramid-to-personal-development/</link>
       <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/adapting-maslows-pyramid-to-personal-development/</guid>
-      <description>The software engineering world is constantly increasing in breadth and depth. There is so much to learn, and it is very challenging to prioritize what and when. Recently, I looked at Maslow&amp;rsquo;s hierarchy of needs in its pyramid form, and then an idea stroke me - personal development might be very much represented in a similar manner. The missing link for me was adding time sensitivity to the needs (i.e. priorities).</description>
+      <description>&lt;p&gt;The software engineering world is constantly increasing in breadth and depth. There is so much to learn, and it is very challenging to prioritize what and when. Recently, I looked at &lt;a href=&#34;https://en.wikipedia.org/wiki/Maslow%27s_hierarchy_of_needs&#34;&gt;Maslow&amp;rsquo;s hierarchy of needs&lt;/a&gt; in its pyramid form, and then an idea stroke me - personal development might be very much represented in a similar manner. The missing link for me was adding time sensitivity to the needs (i.e. priorities). One famous example of this approach is a &lt;a href=&#34;https://martinfowler.com/bliki/TestPyramid.html&#34;&gt;TestPyramid&lt;/a&gt;:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Getting Things Done With Outlook and Asana</title>
       <link>https://softwhat.com/getting-things-done-with-outlook-and-asana/</link>
       <pubDate>Tue, 28 Apr 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/getting-things-done-with-outlook-and-asana/</guid>
-      <description>Nowadays, much of incoming (reactive) work arrives through email. In this post I want to share an approach I found efficient for myself to manage that work, in addition to proactive work. The process below builds on Getting Things Done time management method and the Eisenhower method for setting priorities.
-This is the regular state of my Outlook inbox (except some outliers here and there of course 😊). I usually do one of the following actions when processing inbox, and then archive the email immediately:</description>
+      <description>&lt;p&gt;Nowadays, much of incoming (reactive) work arrives through email. In this post I want to share an approach I found efficient for myself to manage that work, in addition to proactive work. The process below builds on &lt;a href=&#34;https://en.wikipedia.org/wiki/Getting_Things_Done&#34;&gt;Getting Things Done&lt;/a&gt; time management method and the &lt;a href=&#34;https://en.wikipedia.org/wiki/Time_management#The_Eisenhower_Method&#34;&gt;Eisenhower&lt;/a&gt; method for setting priorities.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://softwhat.com/images/getting-things-done-with-outlook-and-asana-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;This is the regular state of my Outlook inbox (except some outliers here and there of course &amp;#x1f60a;). I usually do one of the following actions when processing inbox, and then archive the email immediately:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Automated Path From Hardcoded SQL Queries to SQLAlchemy ORM With Flask</title>
       <link>https://softwhat.com/automated-path-from-hardcoded-sql-queries-to-sqlalchemy-orm-with-flask/</link>
       <pubDate>Sat, 11 Apr 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/automated-path-from-hardcoded-sql-queries-to-sqlalchemy-orm-with-flask/</guid>
-      <description>Let&amp;rsquo;s assume you started by developing the database schema directly on the server (e.g. using MySQL Workbench) and used hardcoded SQL queries in the code (e.g. using one of Transaction Script, Domain Model or Logic in SQL approaches).
-Then at some point you feel confident to use SQLAlchemy&amp;rsquo;s Object-Relational Mapping (ORM) framework. On a side note, I highly recommend to read OrmHate article by Martin Fowler to get some perspective on when to use ORM frameworks.</description>
+      <description>&lt;p&gt;Let&amp;rsquo;s assume you started by developing the database schema directly on the server (e.g. using MySQL Workbench) and used hardcoded SQL queries in the code (e.g. using one of &lt;a href=&#34;http://www.martinfowler.com/articles/dblogic.html&#34;&gt;Transaction Script, Domain Model or Logic in SQL&lt;/a&gt; approaches).&lt;/p&gt;&#xA;&lt;p&gt;Then at some point you feel confident to use &lt;a href=&#34;https://www.sqlalchemy.org/&#34;&gt;SQLAlchemy&lt;/a&gt;&amp;rsquo;s Object-Relational Mapping (ORM) framework. On a side note, I highly recommend to read &lt;a href=&#34;http://martinfowler.com/bliki/OrmHate.html&#34;&gt;OrmHate&lt;/a&gt; article by Martin Fowler to get some perspective on when to use ORM frameworks. One benefit is versioning the schema as part of business logic code. There are also many tools to perform migrations, and more importantly, downgrades of the database. The reason I use SQLAlchemy here is because it is considered as one of the most popular SQL frameworks for Python.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Organizing Flask-based Web API Directory Structure</title>
       <link>https://softwhat.com/organizing-flask-based-web-api-directory-structure/</link>
       <pubDate>Wed, 15 Jan 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/organizing-flask-based-web-api-directory-structure/</guid>
-      <description>Acknowledgements: This post was heavily influenced by Explore Flask book and series of Miguel Grinberg&amp;rsquo;s posts starting with Designing a RESTful API with Python and Flask.
-Still, the above and most of the other examples I found usually refer to directory structure of frontend applications or very simple web APIs. It took me a while to build a big picture of how to build the directory structure of a web API with Flask, hence I thought it might be useful to share.</description>
+      <description>&lt;p&gt;&lt;strong&gt;Acknowledgements:&lt;/strong&gt; This post was heavily influenced by &lt;a href=&#34;https://exploreflask.com/en/latest/&#34;&gt;Explore Flask&lt;/a&gt; book and series of Miguel Grinberg&amp;rsquo;s posts starting with &lt;a href=&#34;https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask/&#34;&gt;Designing a RESTful API with Python and Flask&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Still, the above and most of the other examples I found usually refer to directory structure of frontend applications or very simple web APIs. It took me a while to build a big picture of how to build the directory structure of a web API with Flask, hence I thought it might be useful to share. In addition, I wanted to add an example of how to configure a web API for production deployment. One of popular Platform-as-a-Service (PaaS) offerings out there is &lt;a href=&#34;https://www.cloudfoundry.org/&#34;&gt;Cloud Foundry&lt;/a&gt;, so I thought it would be useful to provide an example for this platform.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Drilling Down to Amazon EC2 Instances Data Transfer Costs</title>
       <link>https://softwhat.com/drilling-down-to-amazon-ec2-instances-data-transfer-costs/</link>
       <pubDate>Thu, 16 May 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/drilling-down-to-amazon-ec2-instances-data-transfer-costs/</guid>
-      <description>The use case I would like to address in this post revolves around the need to understand which specific Amazon EC2 instances incur the highest data transfer charges, including high-level understanding of traffic flow (e.g. to/from Internet, inter-region, intra-region and etc.). For detailed analysis of traffic flow, I would recommend to use Amazon VPC Flow Logs – see Querying Amazon VPC Flow Logs in Amazon Athena (serverless query service) documentation.</description>
+      <description>&lt;p&gt;The use case I would like to address in this post revolves around the need to understand which specific Amazon EC2 instances incur the highest data transfer charges, including high-level understanding of traffic flow (e.g. to/from Internet, inter-region, intra-region and etc.). For detailed analysis of traffic flow, I would recommend to use Amazon VPC Flow Logs – see &lt;a href=&#34;https://docs.aws.amazon.com/athena/latest/ug/vpc-flow-logs.html&#34;&gt;Querying Amazon VPC Flow Logs&lt;/a&gt; in Amazon Athena (serverless query service) documentation.&lt;/p&gt;&#xA;&lt;p&gt;First, I’d like to mention that for most cost management needs, you should first take a look at AWS Cost Explorer. It has an easy-to-use interface that lets you visualize, understand, and manage your AWS costs and usage over time. Get started quickly by creating custom reports (including charts and tabular data) that analyze cost and usage data, both at a high level (e.g., total costs and usage across all accounts) and for highly-specific requests (e.g., &lt;code&gt;m2.2xlarge&lt;/code&gt; costs within account Y that are tagged &amp;ldquo;project: secretProject&amp;rdquo;). Using AWS Cost Explorer, you can dive deeper into your cost and usage data to identify trends, pinpoint cost drivers, and detect anomalies.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Bootstrapping Tcl Unit Testing With Tcltest</title>
       <link>https://softwhat.com/bootstrapping-tcl-unit-testing-with-tcltest/</link>
       <pubDate>Fri, 01 Jul 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/bootstrapping-tcl-unit-testing-with-tcltest/</guid>
-      <description>If you are working with Tcl, and interested in adding unit tests to your project using tcltest, read on.
-Usually there is some bootstrap work required to run your unit tests. For example, every test should load the relevant libraries before using them in a test. There is also a need in a test runner that would execute the test suite and report results. Since there are several ways to implement the above, and there are some gotchas along the way, I thought it would be useful to provide a reference implementation.</description>
+      <description>&lt;p&gt;If you are working with Tcl, and interested in adding unit tests to your project using tcltest, read on.&lt;/p&gt;&#xA;&lt;p&gt;Usually there is some bootstrap work required to run your unit tests.&#xA;For example, every test should load the relevant libraries before using them in a test. There is also a need in a test runner that would execute the test suite and report results.&#xA;Since there are several ways to implement the above, and there are some gotchas along the way, I thought it would be useful to provide a reference implementation.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Using Couchbase Python SDK on Cloud Foundry</title>
       <link>https://softwhat.com/using-couchbase-python-sdk-on-cloud-foundry/</link>
       <pubDate>Thu, 09 Jun 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://softwhat.com/using-couchbase-python-sdk-on-cloud-foundry/</guid>
-      <description>I wanted to use Couchbase as a session store for my app instances, and specifically Couchbase Python SDK. The problem I faced was that Couchbase Python SDK (and some of Couchbase other non-C SDKs) requires Couchbase C SDK to be installed a priori – it is not installed by pip automatically.
-Sadly, Conda package manager doesn’t have Couchbase C SDK in its repository, so I could not use Cloud Foundry Python Conda buildpack to install it (it can be very useful to install SciPy for example, which is supported by Conda).</description>
+      <description>&lt;p&gt;I wanted to use Couchbase as a session store for my app instances, and specifically Couchbase Python SDK. The problem I faced was that Couchbase Python SDK (and some of Couchbase other non-C SDKs) requires Couchbase C SDK to be installed a priori – it is not installed by pip automatically.&lt;/p&gt;&#xA;&lt;p&gt;Sadly, &lt;a href=&#34;http://conda.pydata.org/docs/&#34;&gt;Conda&lt;/a&gt; package manager doesn’t have Couchbase C SDK in its repository, so I could not use Cloud Foundry &lt;a href=&#34;https://github.com/ihuston/python-conda-buildpack/&#34;&gt;Python Conda buildpack&lt;/a&gt; to install it (it can be very useful to install SciPy for example, which is supported by Conda).&#xA;I wanted to avoid bundling of Couchbase C SDK in my Git repository (binary files ❌), so set out to look for a way of installing Couchbase C SDK dynamically during application push to Cloud Foundry.&#xA;Cloud Foundry documentation and Google were not so kind to me this time 😢 – it took a lot of poking around, but eventually I found a nifty feature in Cloud Foundry Python buildpack source code – &lt;strong&gt;&lt;a href=&#34;https://github.com/cloudfoundry/python-buildpack/tree/master/bin/steps/hooks/&#34;&gt;pre and post compile&lt;/a&gt; hooks&lt;/strong&gt;!&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
